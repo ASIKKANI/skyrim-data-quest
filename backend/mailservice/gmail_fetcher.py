@@ -55,11 +55,12 @@ def parse_email_message(msg):
 
     sender = msg.get("From", "")
 
-    return {
+    json_obj = {
         "from": sender,
         "body": body,
         "headers": headers
     }
+    return json_obj
 
 # --- SEND TO BACKEND ---
 def send_to_backend(email_data):
@@ -85,3 +86,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+
