@@ -1,0 +1,32 @@
+{
+  "from": "Yeswanth Ram <cr7yeswanth@gmail.com>",
+  "to": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+  "subject": "",
+  "date": "Wed, 17 Sep 2025 16:28:09 +0530",
+  "folder": "INBOX",
+  "body": "wkhfguvcd\r\n",
+  "headers": {
+    "Delivered-To": "radio.heads1709@gmail.com",
+    "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 41be03b00d2f7-b54a3738581sor7948770a12.4.2025.09.17.03.58.21\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 03:58:21 -0700 (PDT)",
+    "X-Received": "by 2002:a17:903:94d:b0:25f:5397:b499 with SMTP id\r\n d9443c01a7336-26813bee5fdmr22177335ad.47.1758106700324; Wed, 17 Sep 2025\r\n 03:58:20 -0700 (PDT)",
+    "ARC-Seal": "i=1; a=rsa-sha256; t=1758106701; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=fjNcasz/sXTX4Af2F8g/XPMGb4Xec4g0hjCmmvkz5MAAqB+SlnfMp0zL3hm/aoYoWz\r\n         v0NxZMu55cUc3aEaZqIwsPF4b1nOpt9hMvJCddfga2vr/WbA5QZ9zI3rIyMku7ZPubNI\r\n         1DYcGRx9hBr8+H9XT9d3o/3b3+KtO0mubuW6hiITbLR/nEs7n4pFJop3Vwbxy8x5+wEb\r\n         r+hMdT0FGcjzTfPGpEI9EgBQK5ziAKK3sRe/G7h4C+8wc8wL1vBwndwvzjNc0/FkHc5u\r\n         pbuVuDdlTbh6qsr3vZIcgMbvziT/3qAmkgym7qfIq6/Gotx/91mhoUKHO4S1a/3f3XH6\r\n         +5ng==",
+    "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=Q3jprVUHhQ637B5F17DflquXP7uHJFpUsEveQoqIaPQ=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=RXdv9xT3iW5/WvTaqmvg0ilsLsWgireu9Z9rTa8tIsk8N75QTnub3jKTlLq+c7RsFr\r\n         EN0QXQd5plGbSGT+T3/jEws6rsFpF4+pZSZTJVzCUFaA88SaSxEwHaohuvbd+Wx08DiR\r\n         kR/7NftNF8RzH9T/5ZvOYTl7ovADSMvfitcvytCw/beldEGC/Kg8Q3GgO4U15lIskX2d\r\n         Rf1GCNWAjt8DSiooJXVfi/WxzEC09yN6lnFq6mcYMmhM17laSZB0HBnMRuqfTtHySsnC\r\n         KOqImtFJaiwrlY+u+U2QwKiN8hbjsEwph9kK/K9ooXqL/YPfYHL59rkFchW4mxGzUBSz\r\n         JFVw==;\r\n        dara=google.com",
+    "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=dfcn6rGW;\r\n       spf=pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=cr7yeswanth@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "Return-Path": "<cr7yeswanth@gmail.com>",
+    "Received-SPF": "pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+    "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=dfcn6rGW;\r\n       spf=pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=cr7yeswanth@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1758106700; x=1758711500; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=Q3jprVUHhQ637B5F17DflquXP7uHJFpUsEveQoqIaPQ=;\r\n        b=dfcn6rGWDft4i/8AoVMtA5gFT+Lye2NmfZwbn7+O2OBnu3zK1ZsyABlIfos4aICh2x\r\n         ijKHGuuP1P8Z0jOkQcJiDdUyl6fayKMqcIBgnjiLLe8RNULHKu9i1SRuuf0dLKHGCHaq\r\n         BKDC1mQHHXj7RXVIOAqXqwnOIbhi+x9ZL2X4ryhgO1pOf0ILcY023e+OeHoGeLIKVT0B\r\n         l29VFvnSWrKdNgt46b8ZQL2D+DOlryodrKoAJ33Gp0j8lj2afLFT0B/8JXUPVsD4WVoA\r\n         Qndes6dkSJvva2lrlWxgnI0BbgSrk6NII8tFvvRgSjwqjNOBya8vmTdZMkT/wogkhOyM\r\n         Wo1g==",
+    "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758106700; x=1758711500;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=Q3jprVUHhQ637B5F17DflquXP7uHJFpUsEveQoqIaPQ=;\r\n        b=d24UCsT7gJ972mbTcIyv02AeMbxjvixLIJrx6s7yOQanSHGlUFPtQTFbKKhDpFqOdJ\r\n         UwsdBB2+bOmODALDslFuCNzo65R3HIK3f23BUi2E2PalQCX3ehnQ7zr/Cto23cRauhyB\r\n         5jTazHygdkLpGsHG3HUbHorEDh8bng5bchTV+nmbqyQH7xmEnC1UyIln+dyiwbpgABXk\r\n         pExJ1OXJDseFC+jNS3AEB+V8Hb7XBa7qhpa1/I8PhO52XJjLyC0yL/LUiSZ3adQpMxcy\r\n         LqcKjUzbMefx4hqV7waXZ3QxOpKfnx9UmdzPKjJHR8vuX0YNEkIqAr2O42Q2yGI0JLXW\r\n         LGTA==",
+    "X-Gm-Message-State": "AOJu0YxiGv6++/s7KQA0VZud3Vo/iA8AtbEdrcbVye2/ASQZ/Ww3wvyF\r\n\t72/CkGkI3j4baeN9v9ZH0ATS70LETZfClxfSc4eIA6bUNViSpy2wp8NoeD8ZcRPwgzINACNSKOc\r\n\t8/pRVXqZ6X1A+uyjw6g2pFIxacTF3/iewvFcz",
+    "X-Gm-Gg": "ASbGncsG2/wN4eb2ZzEUdGmAJ2fRgjkOqVVLqta5aOAo+qZUSE53dNOY9U3AL9sVQSb\r\n\t/VBFeh/sA9rjwo//6YwRFVwdSsXmovvyeRADQQoNiwyZ4f2PtfGT1ON+BQEUpU2hCpVG+vMs9DB\r\n\tbivJxfZQ4c+TMGqWzNAuuLT448aMaqDsRN0o4SZqiSWI9EgvoCKOXuGr6RJFr3JNPXhs+69Y+0/\r\n\t+YUOFqC",
+    "X-Google-Smtp-Source": "AGHT+IEyKMceXhDPJx7iJlmsZPgMFXduNDdsE2+ZGKssxnO3Z0ACcR1agcfmB6RmR/bLOnYspF/Xfj0gHqJWkkR2FFQ=",
+    "MIME-Version": "1.0",
+    "From": "Yeswanth Ram <cr7yeswanth@gmail.com>",
+    "Date": "Wed, 17 Sep 2025 16:28:09 +0530",
+    "X-Gm-Features": "AS18NWB4cjJ2f9eN3J61oCO3Y-PTKbd0WNMzEN74mJVbEwlQ_kiNYZKcHpu0hSs",
+    "Message-ID": "<CACTCcEOyOYRv6f84vNRJGqruuwDZPM7QiGFhcmsC6Mnnbazxkw@mail.gmail.com>",
+    "Subject": "",
+    "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+    "Content-Type": "multipart/alternative; boundary=\"00000000000059a459063efd1dcb\""
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fetched Emails Viewer</title>
+<style>
+  body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f0f2f5; margin: 0; padding: 20px; }
+  h1 { text-align: center; color: #333; margin-bottom: 30px; }
+  #emails-container { display: flex; flex-direction: column; gap: 15px; max-width: 900px; margin: 0 auto; }
+
+  .email-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: 0.3s;
+    position: relative;
+  }
+  .email-card:hover { transform: translateY(-2px); }
+
+  .email-header { font-weight: bold; margin-bottom: 5px; }
+  .email-subject { color: #1a73e8; font-size: 1.1em; margin-bottom: 10px; }
+  .email-body { white-space: pre-wrap; margin-top: 10px; display: none; }
+  .toggle-btn { 
+    background: #1a73e8; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer;
+    font-size: 0.9em; margin-right: 5px;
+  }
+  .delete-btn { background: #d93025; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-size: 0.9em; }
+
+  .urgent { border-left: 5px solid #d93025; }
+  .safe { border-left: 5px solid #34a853; }
+
+</style>
+</head>
+<body>
+<h1>Fetched Emails</h1>
+<div id="emails-container">Loading emails...</div>
+
+<script>
+// Endpoint for fetching parsed emails from FastAPI
+const API_URL = "http://127.0.0.1:8000/api/get_emails"; // Make sure backend has this endpoint
+
+// Keywords to highlight urgent/phishing emails
+const URGENT_KEYWORDS = ["urgent", "password", "verify", "reset", "compromised", "suspended"];
+
+async function fetchEmails() {
+    const container = document.getElementById("emails-container");
+    container.innerHTML = "";
+
+    try {
+        const res = await fetch(API_URL);
+        if (!res.ok) throw new Error("Failed to fetch emails from API");
+
+        const emails = await res.json();
+        if (!emails.length) {
+            container.innerHTML = "<p>No emails found.</p>";
+            return;
+        }
+
+        for (const emailData of emails) {
+            const card = document.createElement("div");
+
+            // Highlight urgent emails
+            const bodyLower = (emailData.body || "").toLowerCase();
+            const subjectLower = (emailData.subject || "").toLowerCase();
+            const isUrgent = URGENT_KEYWORDS.some(word => bodyLower.includes(word) || subjectLower.includes(word));
+            card.className = `email-card ${isUrgent ? "urgent" : "safe"}`;
+
+            card.innerHTML = `
+                <div class="email-header">From: ${emailData.from}</div>
+                <div class="email-header">Date: ${emailData.date}</div>
+                <div class="email-subject">Subject: ${emailData.subject}</div>
+                <div>
+                    <button class="toggle-btn">Show/Hide Body</button>
+                    <button class="delete-btn">Delete</button>
+                </div>
+                <div class="email-body">${emailData.body || ""}</div>
+            `;
+
+            // Toggle body visibility
+            card.querySelector(".toggle-btn").addEventListener("click", () => {
+                const bodyDiv = card.querySelector(".email-body");
+                bodyDiv.style.display = bodyDiv.style.display === "none" ? "block" : "none";
+            });
+
+            // Delete button (removes card from UI)
+            card.querySelector(".delete-btn").addEventListener("click", () => card.remove());
+
+            container.appendChild(card);
+        }
+    } catch (err) {
+        container.innerHTML = `<p style="color:red;">Error: ${err.message}</p>`;
+        console.error(err);
+    }
+}
+
+// Auto-refresh emails every 30s
+fetchEmails();
+setInterval(fetchEmails, 30000);
+</script>
+</body>
+</html>

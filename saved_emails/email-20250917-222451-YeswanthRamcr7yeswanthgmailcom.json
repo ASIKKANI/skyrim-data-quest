@@ -1,0 +1,30 @@
+{
+  "from": "Yeswanth Ram <cr7yeswanth@gmail.com>",
+  "subject": "SUS",
+  "date": "Wed, 17 Sep 2025 22:18:54 +0530",
+  "body": "Dear Customer,\r\n\r\nWe have detected unusual activity in your PayPal account. To prevent\r\npermanent suspension, you must verify your account immediately by clicking\r\nthe link below:\r\n\r\nhttp://paypal-verification-secure.com/login\r\n\r\nFailure to act within 24 hours will result in permanent account closure.\r\n\r\nSincerely,\r\nPayPal Security Team\r\n",
+  "headers": {
+    "Delivered-To": "radio.heads1709@gmail.com",
+    "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id d9443c01a7336-269802468d5sor975135ad.10.2025.09.17.09.49.06\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 09:49:06 -0700 (PDT)",
+    "X-Received": "by 2002:a17:902:d504:b0:24c:af64:ae11 with SMTP id\r\n d9443c01a7336-26813903478mr37995165ad.44.1758127745479; Wed, 17 Sep 2025\r\n 09:49:05 -0700 (PDT)",
+    "ARC-Seal": "i=1; a=rsa-sha256; t=1758127746; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=JlAZcU73yyvk8/qs73+ELE1fvjObGVXScxHV56Gck9Dn/PFsZvxT3U5fx4AZP70nAP\r\n         Q7mVH8erCk1xDfQ65aRaNnjlbEBqUkrfOyrTXaBU48ndui5XfMX2otpSypBvGl1ja3+6\r\n         WfGW9QdSamA00gUh88K5Y+vMJErlDRyBLZTKhA+7EE60/JHSLuTqNzYOIebVffZIUOoE\r\n         SIZki2UBSkBGjwxcQMsvuv3HNDoOv8AaWZEnZpAwDpM1zLVdr5uMheYnDk5kDcrghjZa\r\n         YOvzjhsPXK4EDI3NkayBc1v7lEHwyz+ajjwLyBeAjfrekaHHmCX0wyCo6MV4O8z7RNtA\r\n         oTVA==",
+    "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=tnSlHCe2HzEhUL2pyCRs1gP3W+DMCTjdVbi74MBTEfw=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=Hy2VqV2WOA+cp4VJdDoHhIXne6nbKAI8IFxcACDRIY9zLrR1XKOFKKK6Fgkahk6QgN\r\n         sl96v0IyTb/I1cK/AtKz+PAoeTR34/hfgdnUrdJh6+pt0qErcBUyKJUfsPXBuBYEGdn9\r\n         mXtiFPey0O0oYyzj3N+6bokWQgTGorL63Hjrs3eKUlRFNs0lKntRi3LaTpRqhyOyCaij\r\n         tGhB6DyC7VEtvJPoJniWyEe0x5zcUGHKu4LQ9vaSEKs+ZPaM4kvfnLbeFgGDi/6eK/Fa\r\n         16qL5lLkPngJLeVjQABrwA5GBbpkzOf4Et6tFTXDd3K/JE4laQ4WqrD3WOWlU93uKzQS\r\n         6nEw==;\r\n        dara=google.com",
+    "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=lu2g+2+o;\r\n       spf=pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=cr7yeswanth@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "Return-Path": "<cr7yeswanth@gmail.com>",
+    "Received-SPF": "pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+    "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=lu2g+2+o;\r\n       spf=pass (google.com: domain of cr7yeswanth@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=cr7yeswanth@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1758127746; x=1758732546; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=tnSlHCe2HzEhUL2pyCRs1gP3W+DMCTjdVbi74MBTEfw=;\r\n        b=lu2g+2+oSS0hkvqbSfj2dkVqlpIeUkAQG2Rxv3mDWUTHlDJm4Y9s6ZUY8qA55P2W/C\r\n         Y8u+qy5rqj320KjNIOosRawwyi2oV5xbEqAr1yO7V4K1G7coyc9BKnI9ooqxim6yfYs5\r\n         7MImGaMkfQU221a5a+HxIUrt+xfFf4tZHC5nGE4wR5L86g9w63MCNemelZzJSATg5XYi\r\n         EAw8iEQmpeyPtrsTol8LDd9CM9eRUekk7PdehWORrGizzIHWbXSSX2kuC2yZiMnCEeXz\r\n         Sv9/W9ZIYRjUXVMUb11KJh4OOOPbIzZpWi5PcaR0IfC6FRCzbXCA8HfSczeoqeCPtys5\r\n         U3MQ==",
+    "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758127746; x=1758732546;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=tnSlHCe2HzEhUL2pyCRs1gP3W+DMCTjdVbi74MBTEfw=;\r\n        b=f+dhGhG2oXp1xXPo7vUjLDPdOmO1vE4Qj80qEQ0id34QwMpsKIQc1vlNW9eTM84gPy\r\n         lGUjcqi9GZsTr8BKT93oZSleNIISjjcU8EZK5f0ZAg7P3vB09P8Hvn/jJeG320zGvVgK\r\n         qqo/49WDaCymdUBK1H73UM5un1W/li5tM8fTfyCqWpMXjJVPhqpnk6z3FhoXYM8YFKe8\r\n         CjjH0O6lgMjBPsqRrZStvRvCUVbFduriRzF5vprjAYxiXJ3j2XNV0bP1ICF7zsQ1WnwS\r\n         AQb/KM1lwl5Yhh/zLY8DdRCcOVsu8BwH5rhIa9PuCxqbPfQX3ki/VfV8vnyTdtURCaG/\r\n         nWNw==",
+    "X-Gm-Message-State": "AOJu0Yx5GuQVI7LOpVCSVDDeQ0mPGysaloabPQFDyulp9VRCscsd1Knx\r\n\tY0x+e49+t6nmw96MtDcwt+/NH8Jq/ePl8ek2n43Hsn+O6NWxJCzZ60oD+/VDmL8vqcDfSJJ2GDC\r\n\tSCNMZbvJIvK6vIz1RPEjXSUcMe8KdT+XuNuVixQk=",
+    "X-Gm-Gg": "ASbGncvyiIC7lSyVTbVmpZJ/1Ca03V/77ehdF+bQUiThKyG7KJ+NFGd4yVA3o5nM98J\r\n\tmoWIuCCityJkhymlv5EMjb+CmY9kemWlvhwc/cxCua/cP7PMSafN2FgdAcwcZ23aTj4cHmKSFnZ\r\n\t4umcnrCIgLTUkf+FVnttSNtyAICRlFMN9ke9aEhw0qanj3DnP+k+zCO/0ffmll77geMRpQd5gJ/\r\n\taCplhbknbNhAOMdqFg=",
+    "X-Google-Smtp-Source": "AGHT+IGhHE3wQQaOSDwqEgT5V0ZIr4tpadvCr+Lt5JU+j8Aafh+uyRJ8+WbG/vXB5i4maRlI4J4D1UVVdruVjQ5lulM=",
+    "MIME-Version": "1.0",
+    "From": "Yeswanth Ram <cr7yeswanth@gmail.com>",
+    "Date": "Wed, 17 Sep 2025 22:18:54 +0530",
+    "X-Gm-Features": "AS18NWAIyk5tIcPaL6tQjh4zORUm7mncim3cQCfZjnjWsmn4TAXmijdEkdKaw30",
+    "Message-ID": "<CACTCcENr8GC5GpF6ztqQX-NNxe7jyo+ZbrOEoptr7Ne1f=CTpQ@mail.gmail.com>",
+    "Subject": "SUS",
+    "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+    "Content-Type": "multipart/alternative; boundary=\"000000000000bd3a8b063f020374\""
+  }
+}

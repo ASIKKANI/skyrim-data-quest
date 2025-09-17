@@ -1,0 +1,30 @@
+{
+  "from": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+  "subject": "",
+  "date": "Wed, 17 Sep 2025 21:23:12 +0530",
+  "body": "\r\n",
+  "headers": {
+    "Delivered-To": "radio.heads1709@gmail.com",
+    "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 5614622812f47-43b82b2c865sor2239508b6e.11.2025.09.17.08.53.25\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 08:53:25 -0700 (PDT)",
+    "X-Received": "by 2002:a05:6808:2f12:b0:438:22e9:4585 with SMTP id\r\n 5614622812f47-43d50d30ffcmr884274b6e.36.1758124404780; Wed, 17 Sep 2025\r\n 08:53:24 -0700 (PDT)",
+    "ARC-Seal": "i=1; a=rsa-sha256; t=1758124405; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=Hc5F++VWpU4OjyQFlfvPC/NwOz40/7e7BL5vQkIS60d5eDOqfihTLAR/tsChJjmWhb\r\n         Hl4FkIJvI0spBnRJlA663wDyaGAkD96sV7Pu7vANu1i73IEKzYV2dzZsiG97YNQakXVJ\r\n         3Fvij7225zdqiGBWfIhJAZihJE51E6JWC9zS0LhPXu8OemgzekxntGLSEf1jFAksLWKr\r\n         O8RoNo+IopHZYOVcrNvSnV1iolZTWkz/uLZkVzzhjXBkPPMwyfL91WvHrqEeIL04rn+c\r\n         N2Snu1XXZhqQn5DgSNaqG8Fdly6iWpOaDjmiq0His5B2rnSJMzzfThTgE+glalEHDCiB\r\n         Q0wA==",
+    "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=S4zS5gcqlZu5K3hp2gs8SBa2aMJqvRsWz7bUP1/DR1E=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=G3mfEFl7/V+1pXnvTU/ub2QhsJ6ii/FSVOf+pTikg/+zr92W4HdkdzN6Pv3q3087IA\r\n         StGFIinjtHsJfGTUYAAIlnc4+yIGouMV0XqY5wk6OpJmcYzMc9yFf7BcefwxeQaZoCSn\r\n         yX6TvSIro9MQ6B7tlSwYDiidu7A8F61XyMsb3o19gpR95RuzJ+S7igdcHydE0Krxq8BI\r\n         uxsxqG6s4RvxasA6SWpKgq4IQHo5AGTyDlNTHF6H5nhdAsxQtAIue7U06E39OtIPxP1J\r\n         AuRQnN2qXoiBK41GiBxbU1tvXNoOYMsjSN6p8zohFZjwA2C1ddtpV/RBBCL5PFpBNHDz\r\n         T9FA==;\r\n        dara=google.com",
+    "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=DLwAWaO6;\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "Return-Path": "<justinbharani24@gmail.com>",
+    "Received-SPF": "pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+    "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=DLwAWaO6;\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1758124405; x=1758729205; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=S4zS5gcqlZu5K3hp2gs8SBa2aMJqvRsWz7bUP1/DR1E=;\r\n        b=DLwAWaO66ZmMMJBHTE0gPilGRMng3x1SjOha00vbIvuPGCv+rDC5804Y7oX1Hsxpnn\r\n         0TIDXS0Cs3eZk4ITs2uQywL4XzS7SGfXauLY68BYLQ0mBMRipRVSrN5YPr43o2DNj9nA\r\n         6R6a7MN4bhqwNndQpPJbS1KEcojfxOxAKSEjl4cYl+OF18ZmQzeOmVg+LiKQQAhO8M82\r\n         K/dXtezGC2G8Os9+yzCiJKoplNZ/SVR1sOUfJmmFY58pK0wfpiM4hMRar8syp95+DcSi\r\n         759GQ1fq1f+jWFeI6H9TcBt9+Gf0+Q6s0HveawhwRzwFqcrbH2/Lb1WikFhVEW1qOPaA\r\n         rWWg==",
+    "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758124405; x=1758729205;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=S4zS5gcqlZu5K3hp2gs8SBa2aMJqvRsWz7bUP1/DR1E=;\r\n        b=JRxml2sQ+pB9am+i6wnWvcWcCG4FoGU4kdnT2jA/8ua4Xk6CmoZs08fkwa55vnrrcy\r\n         gAdMn/jZNbVqDus+iQUBUgZjQzEP6J6b9aKxrxqDr7iY49GE+3RJF57qpkEsFY+8Wl13\r\n         ETbNU4kFAo7kx0XNwqt+GvsUl/Vgh306EkBbscjABy7zu70L8hNhHdOGqhF+ye9SRKbs\r\n         80xIBGPEdaFCf4rF5pZYs8Zm0o0ol6g5SFvkMh7xgGAAQgtw56DPVHbR3UJdRMbaMeXs\r\n         J8ffQLqLm6d0y4QNULNvKQVfLBeIFuYI2Ss4X6suVJrzW3Z41oaoWFyz+mh/9br3E5Ak\r\n         k+GA==",
+    "X-Gm-Message-State": "AOJu0YxXFHD56ENFsewWi75B5i4OE7wam9a7xaPenGqa8OMLY41tjhQD\r\n\tX7LkBvOiiH2Rjx+Nvn1cjamFHkXT7USMGujzTR8rRA2E/dIgY9ZIydAvbT8QbtLRH16aPjb7i8M\r\n\txDUtjlljhjb0wS4JH2kuJhQCwdCgEmZSPN/wV",
+    "X-Gm-Gg": "ASbGncsJwCLifQB2sEUVoVFODM7pX8qfZiLjnSno02kBoDvbPIDj8oZBbCViAnCt87u\r\n\t6/SG9lIPrSdLH+gcs6szmTNkVG8ICCU32IqJgYuyrNXVOfmE6XHhiYJigRknVjx9a4G7/IUZCU3\r\n\tI8MSeHJu6NXZ866yifYFolhRDTdHYixWuaz51RDl3Aqge3Ch/0QwHJODDWqffoTiVttS4MXYpy5\r\n\t1gMldgWfkiIgqK3DuY=",
+    "X-Google-Smtp-Source": "AGHT+IG2yYpSYNiBMJPK9BhlxZGKkLqk5yxtzRoMa97swD6h9IDIgRdAGe8p/EilszLUBSk0vZlXfWSeQowlkij+Uqg=",
+    "MIME-Version": "1.0",
+    "From": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+    "Date": "Wed, 17 Sep 2025 21:23:12 +0530",
+    "X-Gm-Features": "AS18NWB3pPZ_nyIzk2JfvxR734mRsvTOS8O85rz0BaM6uabLXD1jA3DVPQPJAo8",
+    "Message-ID": "<CAF46bKqn6MfD92UeSrci-7AjoCLogz5BE1kybtKES4n8wvTfzA@mail.gmail.com>",
+    "Subject": "",
+    "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+    "Content-Type": "multipart/mixed; boundary=\"0000000000009e4d37063f013cb2\""
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "from": "Logesh R 24BAI1291 <logesh.r2024@vitstudent.ac.in>",
+  "to": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+  "subject": "",
+  "date": "Wed, 17 Sep 2025 17:39:49 +0530",
+  "folder": "INBOX",
+  "body": "rgfyru bgvui\r\n\r\n-- \r\n**Disclaimer:*\r\nThis message was sent from Vellore Institute of Technology.  \r\nThe contents of this email may contain legally protected confidential or \r\nprivileged information of “Vellore Institute of Technology”.  If you are \r\nnot the intended recipient, you should not disseminate, distribute or copy \r\nthis e-mail. Please notify the sender immediately and destroy all copies of \r\nthis message and any attachments. If you have received this email in error, \r\nplease promptly notify the sender by reply email and delete the original \r\nemail and any backup copies without reading them.*\r\n",
+  "headers": {
+    "Delivered-To": "radio.heads1709@gmail.com",
+    "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 6a1803df08f44-78e66fe1f55sor14028916d6.1.2025.09.17.05.09.59\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 05:09:59 -0700 (PDT)",
+    "X-Received": "by 2002:ad4:5943:0:b0:775:6a7c:dbd5 with SMTP id\r\n 6a1803df08f44-78ec7125c1amr12754776d6.33.1758110998959; Wed, 17 Sep 2025\r\n 05:09:58 -0700 (PDT)",
+    "ARC-Seal": "i=1; a=rsa-sha256; t=1758110999; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=WPMBfO0LuOtwd3blLmb1l189Am7SkSA7pzAbaIvz+/cqs/Z1pM8pQiZV1ECuuRr0sx\r\n         pgxipYxTrc4FfDSf4b61x78bNsP7CpMhgWY1B9WgNI5kEEP+69M9HLU7a6E/696Sb/FE\r\n         YGmr0EyIoMQ5oD3SwXv6gLtcyudPoKbKOeSNROtsthl0St3lZQgITAiEv+dhYZ6kNpTZ\r\n         0oAEgCJMIY65cwOt3gVpJn6T+xK8dxsKWsn4YXRNrvWgl6NyK3PRBoplQMFcB1bncKNA\r\n         YH6uzG4g5x87zHGC6z5DJJ371k0/0F/FIVcvzc3rNeTNsAE+qOAwAU70eCNUBDXLxbbC\r\n         DbEA==",
+    "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=qqRYWxmm/eYwfiTNxznvl0DSHh7FF2Q0kyx616Rwyok=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=jeI2A1RiguZXCC1x16q0vd+g/luBGFrwfXXf7zZ+oL58IRz/AUfQUfmwHd/gxy8wFB\r\n         z68kTljeplGVArXYSNE+R3Xm5+RSt7C1e6FU7HglNOfzY8y5V1N581G661KMZaABJYGm\r\n         Q3rjiQ0R2a9yBSuYLBY+lNLgJPkkkrN/E1eCv/oyx00bfU8tc9iejskW/EPVz6nc/A2q\r\n         KdcQ2YUWl+msPhY3DE9sqLrGwdBB7W0e/VOPYjEvUmBPc0qS2gvcj5QUxnXObftpFGYS\r\n         13Zq4MkcKPfOnoEOhNhN13IqOPOF1InX7QQCgGK9yYmtqxEMBWVuwyslr5ifyfHqqx9s\r\n         ty1Q==;\r\n        dara=google.com",
+    "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@vitstudent.ac.in header.s=google header.b=NeKNqDoU;\r\n       spf=pass (google.com: domain of logesh.r2024@vitstudent.ac.in designates 209.85.220.41 as permitted sender) smtp.mailfrom=logesh.r2024@vitstudent.ac.in;\r\n       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=vitstudent.ac.in;\r\n       dara=pass header.i=@gmail.com",
+    "Return-Path": "<logesh.r2024@vitstudent.ac.in>",
+    "Received-SPF": "pass (google.com: domain of logesh.r2024@vitstudent.ac.in designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+    "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@vitstudent.ac.in header.s=google header.b=NeKNqDoU;\r\n       spf=pass (google.com: domain of logesh.r2024@vitstudent.ac.in designates 209.85.220.41 as permitted sender) smtp.mailfrom=logesh.r2024@vitstudent.ac.in;\r\n       dmarc=pass (p=REJECT sp=REJECT dis=NONE) header.from=vitstudent.ac.in;\r\n       dara=pass header.i=@gmail.com",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=vitstudent.ac.in; s=google; t=1758110999; x=1758715799; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=qqRYWxmm/eYwfiTNxznvl0DSHh7FF2Q0kyx616Rwyok=;\r\n        b=NeKNqDoU1NK14j565MpIkfyEwMHlm0F9P4BpKpE/mqtK7jrWQiIMf0urg90DfIB0qb\r\n         51BiK4Bnn7V+bKqjbMqNBi17cPEWACtbTWc2ZeQfLVLFUMRyEOeaorJj0bE9H5SPHHnK\r\n         7OGdOQHLZvp1fY5M8gWU0hgJ0mHQxnfTNaF2w=",
+    "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758110999; x=1758715799;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=qqRYWxmm/eYwfiTNxznvl0DSHh7FF2Q0kyx616Rwyok=;\r\n        b=ZWacPHBahfrV6Lytq0erEm/u/vkCfRNYV85otqMM3GH60fNNxvWn04NfYP6VHSCY0C\r\n         Ev0AJLK5NM45/3PNQWkaaDwqcQYtv/iGk1owmdbM5b0gqtFMV7BMZ4qOVhn3aBVN935y\r\n         eTrBQfAFhTHjZ+lxCJGk6b67XQBPnQH2r7sfzfMta08gkuyaIU716CKbLznle/mQIh7R\r\n         IMk8OshN0EC4fTAQ+wtEht3L6Ulbo+ZVFoXNPScXoHUC981HMrhWOFdNLj6X4CMyVasi\r\n         3V0x1uxLN6ByRciuwR0+H8vVWDKVXE0Y4+jz8z7gEghie4sJ3/gaIZyZMmlWQz1tXBjB\r\n         720A==",
+    "X-Gm-Message-State": "AOJu0YxPlIQX+eFugpC5qUGyvdqH6jr1CLC7eQUNHo7gt4WzOZ6ahEvC\r\n\tivT/iXqZlz3Xbo08dA+5wpQZ0SoYo5D7lba8+SRcTNyL7G7V1KjbW2Ok0efgPnykeYqhJOWWBHS\r\n\tdRYokjinNKfoaRFOI6CIb94/yk1OZX0vJCKrw3imzz+y4tSJyrxELD545+hN2BqQL1GQ3DKNvdw\r\n\t4N+NM1C6Q2t/SuQvCQKwy5lIQl9AIO1iUiWLinZn0=",
+    "X-Gm-Gg": "ASbGncvxuchiBjSBjt+27I+2L+gDjf6QMd55Z3w3IXWHsqCUfnhp9JuzIsppazipFXr\r\n\tgtC9kO8HracZWSTIYmq3bkygI5jB0EssQdj8YXJjlg42DozNF1lZYVIsXh+Ewa2kTl3J25o9Fg8\r\n\to04ZDBlhGbC9yKA7zU01WEX/9DXvdnQ96fHiYnNqGZkXKP4oer8E5KQqbhdhsKEkX5kXIV+fnSr\r\n\tvUWG9edO9Hz1953kKYbZGHcew==",
+    "X-Google-Smtp-Source": "AGHT+IHW2EkyzQmElk1WUO4r/SDT9SidnIYQfEvmwIDvc9HJrLrqPy7mgix8+LTl91MRon4/OZvc4WJTsVrpdY5G/G0=",
+    "MIME-Version": "1.0",
+    "From": "Logesh R 24BAI1291 <logesh.r2024@vitstudent.ac.in>",
+    "Date": "Wed, 17 Sep 2025 17:39:49 +0530",
+    "X-Gm-Features": "AS18NWCqp94wWBI6rmPgTWHmRfeUVyT6VzBzzlJRyPBr0oRlgImYWZa7WLva9k8",
+    "Message-ID": "<CAFBWxs736dpPymJ8nzuOdaMFNDCq9xO-yOhzGnXGze_m2YvG-A@mail.gmail.com>",
+    "Subject": "",
+    "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+    "Content-Type": "multipart/alternative; boundary=\"00000000000091b0ad063efe1dc9\""
+  }
+}
