@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Gmail-like Email Viewer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Share Tech Mono for robotic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #a5b4fc;
+      --primary-dark: #6366f1;
+      --sidebar-bg: #181c24;
+      --main-bg: #232946;
+      --navbar-bg: #232946;
+      --border: #232946;
+      --hover: #232946;
+      --selected: #353b4b;
+      --compose: #6ee7b7;
+      --compose-hover: #34a853;
+      --shadow: 0 2px 16px rgba(60,72,88,0.18);
+      --text-main: #f3f6fa;
+      --text-secondary: #bfc7d5;
+      --text-muted: #6b7280;
+      --accent: #fca5a5;
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      background: var(--sidebar-bg);
+    }
+    body {
+      font-family: 'Share Tech Mono', 'Segoe UI', Arial, sans-serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #181c24 0%, #232946 60%, #1a2233 100%);
+      color: var(--text-main);
+      overflow: hidden;
+    }
+    .navbar {
+      height: 56px;
+      background: var(--navbar-bg);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      padding: 0 28px;
+      font-size: 1.25em;
+      font-weight: 600;
+      color: var(--primary);
+      letter-spacing: 1px;
+      box-shadow: var(--shadow);
+      z-index: 2;
+      position: relative;
+      animation: fadeInDown 1.1s cubic-bezier(.68,-0.55,.27,1.55);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .container {
+      flex: 1;
+      display: flex;
+      min-height: 0;
+      background: var(--sidebar-bg);
+      position: relative;
+      overflow: hidden;
+    }
+    #sidebar {
+      width: 340px;
+      background: var(--sidebar-bg);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 2px 0 16px rgba(60,72,88,0.12);
+      z-index: 1;
+      transition: box-shadow 0.2s;
+      animation: fadeInLeft 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .sidebar-header {
+      padding: 24px 24px 8px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    #email-list {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 20px;
+    }
+    .email-item {
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      padding: 18px 24px 14px 24px;
+      border-bottom: 1px solid #232946;
+      cursor: pointer;
+      transition: background 0.18s, box-shadow 0.18s, color 0.18s;
+      outline: none;
+      position: relative;
+      color: var(--text-main);
+      animation: fadeInUp 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.08em;
+    }
+    .email-item:hover {
+      background: #232946;
+      color: var(--primary);
+      box-shadow: 0 2px 8px #6366f122;
+      z-index: 2;
+    }
+    .email-item.selected {
+      background: var(--selected);
+      color: var(--accent);
+      box-shadow: 0 2px 12px #6366f144;
+    }
+    .subject {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 1.08em;
+      margin-bottom: 2px;
+      letter-spacing: 0.2px;
+      text-shadow: 0 1px 4px #23294655;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .from {
+      color: var(--text-secondary);
+      font-size: 0.98em;
+      margin-bottom: 2px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .date {
+      color: var(--text-muted);
+      font-size: 0.93em;
+      margin-bottom: 2px;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .preview {
+      color: #bfc7d5;
+      font-size: 0.97em;
+      margin-top: 2px;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 90%;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    #main {
+      flex: 1;
+      background: var(--main-bg);
+      padding: 40px 48px 32px 48px;
+      overflow-y: auto;
+      min-width: 0;
+      animation: fadeIn 0.8s cubic-bezier(.68,-0.55,.27,1.55);
+      box-shadow: 0 0 0 0 transparent;
+      border-radius: 0 0 0 0;
+      margin: 32px 32px 32px 32px;
+      box-shadow: var(--shadow);
+      color: var(--text-main);
+      font-family: 'Share Tech Mono', monospace;
+      position: relative;
+    }
+    #main h2 {
+      margin-bottom: 10px;
+      font-size: 1.7em;
+      color: var(--primary);
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 8px #23294688;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    #main .from, #main .date {
+      margin-bottom: 6px;
+      font-size: 1.13em;
+      color: var(--text-secondary);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    #main hr {
+      border: none;
+      border-top: 1px solid #353b4b;
+      margin: 18px 0 18px 0;
+    }
+    pre.email-body {
+      white-space: pre-wrap;
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.35em; /* Increased from 1.18em */
+      background: #232946;
+      padding: 22px;
+      border-radius: 10px;
+      border: 1px solid #353b4b;
+      margin-top: 18px;
+      color: #f3f6fa;
+      box-shadow: 0 2px 8px #23294644;
+      animation: fadeIn 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .empty-inbox {
+      color: #6b7280;
+      text-align: center;
+      margin-top: 40px;
+      font-size: 1.1em;
+      font-family: 'Share Tech Mono', monospace;
+    }
+    /* BG ANIMATION SHAPES */
+    .background-animated {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      width: 100vw;
+      height: 100vh;
+      background: transparent;
+    }
+    .bg-shape {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.28;
+      filter: blur(16px);
+      will-change: transform;
+      pointer-events: none;
+      mix-blend-mode: lighten;
+    }
+    .bg1 { width: 620px; height: 620px; background: #6366f1; left: 2vw; top: 4vh; }
+    .bg2 { width: 420px; height: 420px; background: #fca5a5; right: 4vw; bottom: 6vh;}
+    .bg3 { width: 260px; height: 260px; background: #6ee7b7; left: 60vw; top: 60vh;}
+    /* Phishing titles styling */
+    .phish-titles {
+      margin: 2.7rem 0 1.7rem 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.7rem;
+      user-select: none;
+      font-family: 'Share Tech Mono', monospace;
+      animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+    }
+    .phish-main {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.35rem;
+      color: #a5b4fc;
+      letter-spacing: 1.5px;
+      text-shadow: 0 2px 12px #23294655;
+      font-weight: 700;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      display: block;
+    }
+    .phish-sub {
+      font-family: 'Share Tech Mono', monospace;
+      font-size: 1.18rem;
+      color: #6ee7b7;
+      letter-spacing: 2.5px;
+      text-shadow: 0 2px 8px #23294644;
+      font-weight: 600;
+      opacity: 0;
+      transform: translateY(30px) scale(0.98);
+      display: block;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    @keyframes fadeInLeft {
+      from { opacity: 0; transform: translateX(-60px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-40px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .back-btn {
+      background: none;
+      border: none;
+      padding: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: box-shadow 0.18s, transform 0.18s, background 0.18s;
+      box-shadow: 0 2px 8px #6366f122;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .back-btn:hover, .back-btn:focus {
+      background: #353b4b;
+      box-shadow: 0 4px 16px #6366f144;
+      transform: scale(1.12) rotate(-8deg);
+    }
+    @media (max-width: 900px) {
+      #sidebar { width: 100px; }
+      .sidebar-header { flex-direction: column; align-items: flex-start; }
+      #main { padding: 18px 8px; margin: 8px; }
+    }
+    @media (max-width: 600px) {
+      .navbar { font-size: 1em; padding: 0 10px; }
+      #sidebar { width: 70px; }
+      #main { padding: 8px 2px; margin: 2px; }
+      .back-btn svg { width: 22px; height: 22px; }
+      .phish-main { font-size: 1.02rem; }
+      .phish-sub { font-size: 0.95rem; }
+    }
+    .predict-btn {
+      position: absolute;
+      top: 32px;
+      right: 48px;
+      background: linear-gradient(90deg, #6ee7b7 60%, #6366f1 100%);
+      color: #232946;
+      border: none;
+      border-radius: 22px;
+      padding: 10px 28px;
+      font-size: 1em;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #6366f122;
+      transition: background 0.18s, color 0.18s, transform 0.18s, box-shadow 0.18s;
+      z-index: 10;
+      outline: none;
+      opacity: 0.96;
+      animation: fadeInRight 0.7s cubic-bezier(.68,-0.55,.27,1.55);
+      font-family: 'Share Tech Mono', monospace;
+    }
+    .predict-btn:hover, .predict-btn:focus {
+      background: linear-gradient(90deg, #6366f1 60%, #6ee7b7 100%);
+      color: #fff;
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 4px 24px #6366f144;
+    }
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(60px);}
+      to { opacity: 1; transform: translateX(0);}
+    }
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+</head>
+<body>
+  <div class="background-animated" id="bg-animated">
+    <div class="bg-shape bg1"></div>
+    <div class="bg-shape bg2"></div>
+    <div class="bg-shape bg3"></div>
+  </div>
+  <div class="navbar">
+    <button
+      onclick="window.location.href='homepage.html'"
+      class="back-btn"
+      aria-label="Go back to Sign In"
+      style="margin-right:18px;"
+    >
+      <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+        <circle cx="14" cy="14" r="13" fill="#232946" stroke="#a5b4fc" stroke-width="2"/>
+        <polyline points="16,9 11,14 16,19" fill="none" stroke="#a5b4fc" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <span style="color:var(--primary);font-weight:700;">&#9993; Gmail Inbox</span>
+    <span style="flex:1"></span>
+    <span style="font-size:1em;color:#bfc7d5;font-weight:400;">skyrim-data-quest</span>
+  </div>
+  <div class="container">
+    <div id="sidebar">
+      <div class="sidebar-header">
+        <span style="font-size:1.25em;font-weight:600;color:var(--primary);">Inbox</span>
+      </div>
+      <div id="email-list"></div>
+    </div>
+    <div id="main">
+      <div class="phish-titles">
+        <span class="phish-main">Detecting phishing attempts before they reach you.</span>
+        <span class="phish-sub">Phish stops here.</span>
+      </div>
+      <h2>Welcome!</h2>
+      <p style="color:var(--text-secondary);">Select an email to view its details.<br><br>
+      <span style="font-size:1.1em;">This is your <b>Gmail-like Inbox</b> for saved emails.</span></p>
+    </div>
+  </div>
+  <script>
+    // Animate background shapes with anime.js (fast, visible)
+    anime({
+      targets: '.bg1',
+      translateX: [
+        { value: 0, duration: 0 },
+        { value: 220, duration: 2500, easing: 'easeInOutSine' },
+        { value: -120, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      translateY: [
+        { value: 0, duration: 0 },
+        { value: 160, duration: 2500, easing: 'easeInOutSine' },
+        { value: -80, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      direction: 'alternate',
+      loop: true
+    });
+    anime({
+      targets: '.bg2',
+      translateX: [
+        { value: 0, duration: 0 },
+        { value: -180, duration: 2500, easing: 'easeInOutSine' },
+        { value: 120, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      translateY: [
+        { value: 0, duration: 0 },
+        { value: -180, duration: 2500, easing: 'easeInOutSine' },
+        { value: 100, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      scale: [
+        { value: 1, duration: 0 },
+        { value: 1.22, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0.92, duration: 2500, easing: 'easeInOutSine' },
+        { value: 1, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      direction: 'alternate',
+      loop: true
+    });
+    anime({
+      targets: '.bg3',
+      translateX: [
+        { value: 0, duration: 0 },
+        { value: 120, duration: 2500, easing: 'easeInOutSine' },
+        { value: -60, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      translateY: [
+        { value: 0, duration: 0 },
+        { value: 90, duration: 2500, easing: 'easeInOutSine' },
+        { value: -60, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      scale: [
+        { value: 1, duration: 0 },
+        { value: 1.28, duration: 2500, easing: 'easeInOutSine' },
+        { value: 0.88, duration: 2500, easing: 'easeInOutSine' },
+        { value: 1, duration: 2500, easing: 'easeInOutSine' }
+      ],
+      direction: 'alternate',
+      loop: true
+    });
+
+    // Animate phishing titles
+    anime({
+      targets: '.phish-main',
+      opacity: [0, 1],
+      translateY: [30, 0],
+      scale: [0.98, 1],
+      duration: 900,
+      delay: 300,
+      easing: 'easeOutExpo'
+    });
+    anime({
+      targets: '.phish-sub',
+      opacity: [0, 1],
+      translateY: [30, 0],
+      scale: [0.98, 1],
+      duration: 900,
+      delay: 800,
+      easing: 'easeOutExpo'
+    });
+
+    function parseSender(from) {
+      if (!from) return { name: '', email: '' };
+      const match = from.match(/^(.*?)(?:\s*<(.+?)>)?$/);
+      return {
+        name: match && match[1] ? match[1].replace(/"/g, '').trim() : '',
+        email: match && match[2] ? match[2].trim() : ''
+      };
+    }
+
+    async function fetchEmailList() {
+      const resp = await fetch('/saved_emails/');
+      const text = await resp.text();
+      const files = Array.from(text.matchAll(/href="([^"]+\.json)"/g)).map(m => m[1]);
+      return files;
+    }
+
+    async function loadEmailList(selectedFile) {
+      const files = await fetchEmailList();
+      const listDiv = document.getElementById('email-list');
+      listDiv.innerHTML = '';
+      if (!files.length) {
+        listDiv.innerHTML = '<div class="empty-inbox">No emails found.<br>Check your server and <b>saved_emails</b> folder.</div>';
+        return;
+      }
+      for (const file of files.reverse()) {
+        try {
+          const resp = await fetch('/saved_emails/' + file);
+          if (!resp.ok) continue;
+          const email = await resp.json();
+          const sender = parseSender(email.from);
+          const div = document.createElement('button');
+          div.className = 'email-item';
+          div.innerHTML = `
+            <div class="subject">${email.subject || '(No Subject)'}</div>
+            <div class="from">${sender.name || sender.email || 'Unknown sender'}</div>
+            <div class="date">${email.date || ''}</div>
+            <div class="preview">${(email.body || '').slice(0, 60).replace(/\n/g, ' ')}${(email.body && email.body.length > 60) ? '...' : ''}</div>
+          `;
+          div.onclick = () => {
+            window.location.hash = encodeURIComponent(file);
+            showEmail(file, div);
+          };
+          listDiv.appendChild(div);
+
+          // Animate each email item in
+          anime({
+            targets: div,
+            opacity: [0, 1],
+            translateY: [40, 0],
+            duration: 700,
+            easing: 'easeOutExpo'
+          });
+
+          // Auto-select if matches hash
+          if (selectedFile && file === selectedFile) {
+            setTimeout(() => showEmail(file, div), 0);
+          }
+        } catch (e) {
+          // skip broken files
+        }
+      }
+    }
+
+    async function showEmail(filename, div) {
+      document.querySelectorAll('.email-item').forEach(d => d.classList.remove('selected'));
+      if (div) div.classList.add('selected');
+      try {
+        const resp = await fetch('/saved_emails/' + filename);
+        if (!resp.ok) throw new Error('Cannot fetch email');
+        const email = await resp.json();
+        const sender = parseSender(email.from);
+        document.getElementById('main').innerHTML = `
+          <button class="predict-btn" id="predict-btn">Predict</button>
+          <h2>${email.subject || '(No Subject)'}</h2>
+          <div class="from"><b>From:</b> ${sender.name ? sender.name + ' ' : ''}${sender.email ? '&lt;' + sender.email + '&gt;' : ''}</div>
+          <div class="date"><b>Date:</b> ${email.date || ''}</div>
+          <hr>
+          <pre class="email-body">${email.body || ''}</pre>
+        `;
+        anime({
+          targets: '#main',
+          opacity: [0, 1],
+          translateY: [30, 0],
+          duration: 600,
+          easing: 'easeOutExpo'
+        });
+        anime({
+          targets: '.predict-btn',
+          scale: [
+            { value: 0.7, duration: 0 },
+            { value: 1.12, duration: 350, easing: 'easeOutBack' },
+            { value: 1, duration: 250, easing: 'easeOutExpo' }
+          ],
+          opacity: [0, 1],
+          delay: 120
+        });
+      } catch (e) {
+        document.getElementById('main').innerHTML = '<p style="color:#fca5a5;">Failed to load email.</p>';
+      }
+    }
+
+    // On page load, check hash for selected email
+    function init() {
+      const selectedFile = decodeURIComponent(window.location.hash.replace(/^#/, '')) || null;
+      loadEmailList(selectedFile);
+    }
+
+    window.addEventListener('hashchange', init);
+    init();
+
+    // Animate the back button on page load
+    anime({
+      targets: '.back-btn svg',
+      scale: [
+        { value: 0.7, duration: 0 },
+        { value: 1.15, duration: 400, easing: 'easeOutBack' },
+        { value: 1, duration: 300, easing: 'easeOutExpo' }
+      ],
+      opacity: [0, 1],
+      delay: 200
+    });
+  </script>
+</body>
+</html>
