@@ -2,40 +2,39 @@
 """
 fetch_emails.py
 ---------------
-Fetch unread Gmail emails, save them as JSON, and send them to FastAPI parser.
+Fetch unread Gmail emails, save them as JSON, run ML prediction,
+and generate Gemini NLP explanation directly.
 """
 
 import imaplib
 import email
-import requests
 import time
 import os
 import json
 from datetime import datetime
 from bs4 import BeautifulSoup
-from fastapi.middleware.cors import CORSMiddleware
 
+# Import your ML and Gemini modules
+from backend.ml.inference import run_model_pipeline
+from backend.services.gemini_service import analyze_email
 
 # ----------------------------
 # CONFIGURATION
 # ----------------------------
-EMAIL_ACCOUNT = "radio.heads1709@gmail.com"     # Replace with your Gmail
-APP_PASSWORD = "gdjunmbwlmndvezg"               # Replace with App Password
+EMAIL_ACCOUNT = "radio.heads1709@gmail.com"  # Replace with your Gmail
+APP_PASSWORD = "gdjunmbwlmndvezg"            # Replace with App Password
 IMAP_HOST = "imap.gmail.com"
-API_URL = "http://127.0.0.1:8000/api/parse_email"  # FastAPI parser endpoint
-
 SAVE_DIR = "saved_emails"
 os.makedirs(SAVE_DIR, exist_ok=True)
-
 
 # ----------------------------
 # HELPER FUNCTIONS
 # ----------------------------
 def clean_html(raw_html: str) -> str:
     """Remove HTML tags and return plain text."""
+    from bs4 import BeautifulSoup
     soup = BeautifulSoup(raw_html, "html.parser")
     return soup.get_text()
-
 
 def extract_body(msg) -> str:
     """Extract plain text or HTML body from email.message.Message object."""
@@ -58,11 +57,9 @@ def extract_body(msg) -> str:
             return ""
     return ""
 
-
 def sanitize_filename(text: str) -> str:
     """Make text safe for filenames."""
     return "".join(c for c in text if c.isalnum() or c in ("-", "_"))
-
 
 def save_email_as_json(email_dict: dict):
     """Save raw email as JSON file in saved_emails/."""
@@ -70,15 +67,15 @@ def save_email_as_json(email_dict: dict):
     sender = sanitize_filename(email_dict.get("from", "unknown"))
     filename = f"email-{timestamp}-{sender}.json"
     filepath = os.path.join(SAVE_DIR, filename)
-
     with open(filepath, "w", encoding="utf-8") as f:
         json.dump(email_dict, f, indent=2, ensure_ascii=False)
+    return filepath
 
-    print(f"✅ Saved raw email to {filepath}")
-
-
-def fetch_and_parse_emails():
-    """Fetch unread emails, save them, and send to parser API."""
+# ----------------------------
+# MAIN FETCH FUNCTION
+# ----------------------------
+def fetch_and_analyze_emails():
+    """Fetch unread emails, save them, run ML + Gemini analysis."""
     try:
         mail = imaplib.IMAP4_SSL(IMAP_HOST)
         mail.login(EMAIL_ACCOUNT, APP_PASSWORD)
@@ -100,8 +97,7 @@ def fetch_and_parse_emails():
         raw_email_bytes = data[0][1]
         msg = email.message_from_bytes(raw_email_bytes)
 
-        # Build raw email dict
-        raw_email_dict = {
+        email_dict = {
             "from": msg.get("From", ""),
             "subject": msg.get("Subject", ""),
             "date": msg.get("Date", ""),
@@ -109,25 +105,26 @@ def fetch_and_parse_emails():
             "headers": dict(msg.items()),
         }
 
-        # 1. Save locally as JSON
-        save_email_as_json(raw_email_dict)
+        # Save locally
+        json_path = save_email_as_json(email_dict)
+        print(f"✅ Saved raw email to {json_path}")
 
-        # 2. Send to parser API
-        try:
-            response = requests.post(API_URL, json=raw_email_dict, timeout=10)
-            print(f"📩 Email from {raw_email_dict['from']} parsed. API response:")
-            print(response.json())
-        except Exception as e:
-            print(f"❌ Failed to send email to parser API: {e}")
+        # Run ML + Rules pipeline
+        ml_result = run_model_pipeline(email_dict)
+        print(f"📊 ML Result: {ml_result}")
+
+        # Generate Gemini explanation
+        gemini_result = analyze_email(email_dict["body"])
+        print(f"💬 Gemini Explanation:\n{gemini_result['explanation']}")
+        print("-" * 80)
 
     mail.logout()
-
 
 # ----------------------------
 # RUN SCRIPT PERIODICALLY
 # ----------------------------
 if __name__ == "__main__":
     while True:
-        fetch_and_parse_emails()
-        print("⏳ Waiting 30 seconds for next check...\n")
-        time.sleep(30)
+        fetch_and_analyze_emails()
+        print("⏳ Waiting 60 seconds for next check...\n")
+        time.sleep(60)
