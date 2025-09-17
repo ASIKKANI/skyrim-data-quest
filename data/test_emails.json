@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "subject": "URGENT: Reset your password now",
+    "body": "<p>Dear user,</p><p>Your account will be <b>locked in 24 hours</b>. Please <a href='http://fake-bank-login.com'>click here</a> to reset immediately.</p>",
+    "metadata": {
+      "sender": "support@secure-bank-login.com",
+      "ip": "192.0.2.10",
+      "received_time": "2025-09-17T09:30:00Z",
+      "headers": { "X-Mailer": "PHP/7.4" }
+    },
+    "label": "phishing"
+  },
+  {
+    "id": 2,
+    "subject": "Your Amazon order #456789 has been shipped",
+    "body": "<p>Hello Yeswanth,</p><p>Your order of <b>Noise Cancelling Headphones</b> has been shipped and will arrive by 20th Sept.</p>",
+    "metadata": {
+      "sender": "order-update@amazon.in",
+      "ip": "198.51.100.5",
+      "received_time": "2025-09-17T08:15:00Z",
+      "headers": { "X-Mailer": "Amazon SES" }
+    },
+    "label": "safe"
+  },
+  {
+    "id": 3,
+    "subject": "Final Notice: Your tax refund is pending",
+    "body": "We noticed your tax refund has not been claimed. Submit your details <a href='http://refund-now-gov.com'>here</a> before 11:59 PM.",
+    "metadata": {
+      "sender": "income-tax@gov-refund.net",
+      "ip": "203.0.113.25",
+      "received_time": "2025-09-16T20:45:00Z",
+      "headers": {}
+    },
+    "label": "phishing"
+  },
+  {
+    "id": 4,
+    "subject": "Meeting Reminder: Project Review at 4 PM",
+    "body": "Hi team, just a reminder that our project review call is at 4 PM today. Please join via the official Zoom link.",
+    "metadata": {
+      "sender": "manager@company.com",
+      "ip": "198.51.100.25",
+      "received_time": "2025-09-17T06:00:00Z",
+      "headers": { "X-Priority": "Normal" }
+    },
+    "label": "safe"
+  },
+  {
+    "id": 5,
+    "subject": "Congratulations! You have won an iPhone 15",
+    "body": "Dear customer, you have been selected as the lucky winner of a brand new <b>iPhone 15</b>. Click here to claim your prize.",
+    "metadata": {
+      "sender": "promo@claim-prize-now.com",
+      "ip": "203.0.113.50",
+      "received_time": "2025-09-15T12:00:00Z",
+      "headers": {}
+    },
+    "label": "phishing"
+  }
+]
