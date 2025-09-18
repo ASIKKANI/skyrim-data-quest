@@ -1,16 +1,15 @@
 # backend/services/gemini_service.py
-import re
 from backend.config import get_gemini_model
 
 # Initialize Gemini model once
 model = get_gemini_model()
 
-def analyze_email(email_text: str) -> dict:
+def analyze_email(email_text: str, rule_score: float, ml_score: float, final_score: float) -> dict:
     """
-    Send email text to Gemini and get risk analysis.
+    Send email text + existing scores to Gemini and get a clear explanation.
     Returns a dict with:
-      - risk_score: int 0–100
-      - explanation: str
+      - risk_score: Final Score (float 0–100)
+      - explanation: str (human-readable reasoning)
     """
     if not email_text or not email_text.strip():
         return {
@@ -19,34 +18,36 @@ def analyze_email(email_text: str) -> dict:
         }
 
     prompt = f"""
-You are a security AI analyzing an email. Your task is to provide a **clear, detailed explanation** for the risk assessment in a way that a non-technical person can understand.
+You are a security AI analyzing an email. Your task is to explain the **scores** below
+in a way that a non-technical user can easily understand.
+
+⚡ Given Scores:
+- Rule Score: {rule_score}
+- ML Score: {ml_score}
+- Final Score: {final_score}
 
 Instructions:
-1. Give a risk score from 0 (safe) to 100 (very risky).
-2. Explain **exactly why** the email received this score. Break down the reasoning by pointing out suspicious features detected by the ML model, such as:
-   - Suspicious links or domains
-   - Unusual sender address
-   - Urgent or threatening language
-   - Requests for sensitive information
-   - Other red flags in the subject or body
-3. Include any factors from the rules engine that influenced the score.
-4. Write in **simple, clear language**, using bullet points if needed.
-5. Conclude with a short summary sentence stating if the email is likely phishing or legitimate.
+1. Do not create new numbers. Only explain the values already provided.
+2. For Rule Score → explain if keywords, suspicious phrases, or red flags were found.
+   If it is 0, clarify that no risky keywords were detected.
+3. For ML Score → explain that this is from the ML model's confidence/accuracy and what it means.
+4. For Final Score → explain how it combines both rules and ML model, and what it suggests about phishing likelihood.
+5. Use **clear, simple language** and bullet points where needed.
+6. Conclude with a short, plain summary: whether the email is likely phishing or safe.
 
 Email to analyze:
 {email_text}
 """
 
-
     try:
         # Use Gemini API
         response = model.generate_content(prompt)
 
-        # Extract text from response safely
+        # Extract text safely
         output = getattr(response, "text", str(response)).strip()
 
         return {
-            "risk_score": extract_risk_score(output),
+            "risk_score": final_score,   # always use provided final score
             "explanation": output or "Explanation not available."
         }
 
@@ -56,15 +57,3 @@ Email to analyze:
             "risk_score": -1,
             "explanation": "Explanation not available."
         }
-
-
-def extract_risk_score(output: str) -> int:
-    """
-    Extracts first numeric risk score (0–100) from Gemini output.
-    If not found, returns -1.
-    """
-    match = re.search(r"\b(\d{1,3})\b", output)
-    if match:
-        score = int(match.group(1))
-        return min(max(score, 0), 100)  # clamp between 0–100
-    return -1

@@ -1,53 +1,55 @@
-<!-- Modern Sign-In Page Template -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign In</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Sign In - SEDetect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
   <style>
+    /* --- Base Styles --- */
     body {
-      min-height: 100vh;
       margin: 0;
-      font-family: 'Share Tech Mono', 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #181c24 0%, #232946 60%, #1a2233 100%);
-      color: #e0e6f0;
+      min-height: 100vh;
+      font-family: 'Share Tech Mono', monospace;
       display: flex;
       align-items: center;
       justify-content: center;
-      position: relative;
-      overflow: hidden;
+      background: linear-gradient(135deg, #181c24 0%, #232946 60%, #1a2233 100%);
+      color: #e0e6f0;
       perspective: 1200px;
-      cursor: default !important;
+      overflow: hidden;
+      cursor: default;
     }
+
+    /* --- Animated Background Shapes --- */
     .background-animated {
       position: fixed;
       inset: 0;
       z-index: 0;
       pointer-events: none;
-      width: 100vw;
-      height: 100vh;
-      background: transparent;
     }
     .bg-shape {
       position: absolute;
       border-radius: 50%;
       opacity: 0.38;
       filter: blur(16px);
-      will-change: transform;
-      pointer-events: none;
       mix-blend-mode: lighten;
+      pointer-events: none;
+      will-change: transform;
     }
     .bg1 { width: 620px; height: 620px; background: #6366f1; left: 2vw; top: 4vh; }
-    .bg2 { width: 420px; height: 420px; background: #fca5a5; right: 4vw; bottom: 6vh;}
-    .bg3 { width: 260px; height: 260px; background: #6ee7b7; left: 60vw; top: 60vh;}
+    .bg2 { width: 420px; height: 420px; background: #fca5a5; right: 4vw; bottom: 6vh; }
+    .bg3 { width: 260px; height: 260px; background: #6ee7b7; left: 60vw; top: 60vh; }
+
+    /* --- Sign-In Container --- */
     .signin-container {
       background: rgba(30,34,54,0.98);
-      color: #f3f6fa;
-      padding: 3.5rem 3.2rem 3.2rem 3.2rem;
+      padding: 3.5rem 3.2rem;
       border-radius: 36px;
-      box-shadow: 0 18px 64px 0 rgba(60, 72, 100, 0.22), 0 4px 16px rgba(0,0,0,0.08);
+      border: 2.5px solid #a5b4fc;
+      box-shadow: 0 18px 64px rgba(60,72,100,0.22), 0 4px 16px rgba(0,0,0,0.08);
       width: 100%;
       max-width: 520px;
       min-width: 320px;
@@ -55,161 +57,138 @@
       text-align: center;
       position: relative;
       z-index: 2;
-      transition: box-shadow 0.2s, transform 0.2s;
-      backdrop-filter: blur(2.5px);
-      border: 2.5px solid #a5b4fc;
-      will-change: transform;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-    }
-    .signin-container:hover {
-      box-shadow: 0 18px 64px 0 rgba(60, 72, 100, 0.22), 0 4px 16px rgba(0,0,0,0.08);
-      transform: translateY(-2px) scale(1.015) rotateY(2deg);
+      backdrop-filter: blur(2.5px);
       transition: box-shadow 0.2s, transform 0.2s;
     }
+    .signin-container:hover {
+      transform: translateY(-2px) scale(1.015) rotateY(2deg);
+    }
+
+    /* --- Branding --- */
     .brand {
-      margin-bottom: 2.2rem;
       font-size: 2.8rem;
       color: #6366f1;
       font-weight: bold;
-      letter-spacing: 1.5px;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 0.7rem;
-      user-select: none;
-      font-family: 'Share Tech Mono', monospace;
+      margin-bottom: 2.2rem;
     }
-    .brand span {
-      font-size: 2.3rem;
-      color: #f3f6fa;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      font-family: 'Share Tech Mono', monospace;
-    }
+    .brand span { font-size: 2.3rem; color: #f3f6fa; }
+
+    /* --- Headings & Text --- */
     .signin-container h1 {
-      margin-bottom: 0.7rem;
       font-size: 2.3rem;
-      color: #f3f6fa;
+      margin-bottom: 0.7rem;
       font-weight: 700;
-      letter-spacing: 0.3px;
+      color: #f3f6fa;
       text-shadow: 0 2px 8px #23294688;
-      font-family: 'Share Tech Mono', monospace;
     }
     .signin-container p {
-      color: #e0e6f0;
-      margin-bottom: 2.2rem;
       font-size: 1.25rem;
       font-weight: 500;
-      line-height: 1.6;
+      margin-bottom: 2.2rem;
       text-shadow: 0 1px 4px #23294655;
-      font-family: 'Share Tech Mono', monospace;
     }
+
+    /* --- Google Sign-In --- */
     .g_id_signin {
       margin: 2.2rem 0 0.7rem 0;
       display: flex;
       justify-content: center;
       width: 100%;
       z-index: 2;
-      transition: transform 0.2s;
-      will-change: transform;
     }
     .g_id_signin > div {
       min-width: 260px;
       border-radius: 14px !important;
       box-shadow: 0 2px 12px #6366f122;
       transition: box-shadow 0.2s, transform 0.2s;
-      will-change: transform;
     }
     .g_id_signin > div:hover {
       box-shadow: 0 4px 24px #6366f144;
       transform: scale(1.08) translateY(-4px) rotateX(8deg);
-      transition: box-shadow 0.2s, transform 0.2s;
     }
+
+    /* --- Footer --- */
     .footer {
       margin-top: 2.8rem;
       font-size: 1.08rem;
       color: #bfc7d5;
       letter-spacing: 0.2px;
-      z-index: 2;
       opacity: 0.85;
-      font-family: 'Share Tech Mono', monospace;
     }
+
+    /* --- Phishing Titles --- */
     .phish-titles {
-      margin: 2.7rem 0 1.7rem 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.7rem;
-      user-select: none;
+      margin: 2.7rem 0 1.7rem;
     }
     .phish-main {
-      font-family: 'Share Tech Mono', monospace;
       font-size: 1.35rem;
+      font-weight: 700;
       color: #a5b4fc;
       letter-spacing: 1.5px;
-      text-shadow: 0 2px 12px #23294655;
-      font-weight: 700;
       opacity: 0;
       transform: translateY(30px) scale(0.98);
-      display: block;
+      text-shadow: 0 2px 12px #23294655;
     }
     .phish-sub {
-      font-family: 'Share Tech Mono', monospace;
       font-size: 1.18rem;
+      font-weight: 600;
       color: #6ee7b7;
       letter-spacing: 2.5px;
-      text-shadow: 0 2px 8px #23294644;
-      font-weight: 600;
       opacity: 0;
       transform: translateY(30px) scale(0.98);
-      display: block;
+      text-shadow: 0 2px 8px #23294644;
     }
+
     @media (max-width: 700px) {
       .signin-container {
-        padding: 1.5rem 0.5rem 1.5rem 0.5rem;
+        padding: 1.5rem 0.5rem;
         max-width: 98vw;
-        min-width: unset;
         min-height: 340px;
         border-radius: 18px;
       }
-      .brand {
-        font-size: 1.7rem;
-      }
-      .brand span {
-        font-size: 1.3rem;
-      }
-      .signin-container h1 {
-        font-size: 1.3rem;
-      }
+      .brand { font-size: 1.7rem; }
+      .brand span { font-size: 1.3rem; }
+      .signin-container h1 { font-size: 1.3rem; }
       .phish-main { font-size: 1.02rem; }
       .phish-sub { font-size: 0.95rem; }
       .footer { font-size: 0.93rem; }
     }
   </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
-  <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
-  <div class="background-animated" id="bg-animated">
+  <div class="background-animated">
     <div class="bg-shape bg1"></div>
     <div class="bg-shape bg2"></div>
     <div class="bg-shape bg3"></div>
   </div>
+
   <div class="signin-container" id="signin-container">
     <div class="brand"><span>📧</span> SEDetect</div>
     <h1>Sign In</h1>
     <p>Sign in with your Google account to continue.</p>
+
     <div class="phish-titles">
       <span class="phish-main">Detecting phishing attempts before they reach you.</span>
       <span class="phish-sub">Phish stops here.</span>
     </div>
+
     <div id="g_id_onload"
          data-client_id="429932249540-gets120e0bmktuud7kq6k6hkui3sj3gm.apps.googleusercontent.com"
          data-callback="handleCredentialResponse">
     </div>
+
     <div class="g_id_signin"
          data-type="standard"
          data-size="large"
@@ -218,160 +197,47 @@
          data-shape="rect"
          data-logo_alignment="left">
     </div>
-    <div class="footer">
-      &copy; 2025 Social Engineering Detection
-    </div>
+
+    <div class="footer">&copy; 2025 Social Engineering Detection</div>
   </div>
-  <style>
-    .phish-titles {
-      margin: 2.7rem 0 1.7rem 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.7rem;
-      user-select: none;
-    }
-    .phish-main {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 1.35rem;
-      color: #a5b4fc;
-      letter-spacing: 1.5px;
-      text-shadow: 0 2px 12px #23294655;
-      font-weight: 700;
-      opacity: 0;
-      transform: translateY(30px) scale(0.98);
-      display: block;
-    }
-    .phish-sub {
-      font-family: 'Share Tech Mono', monospace;
-      font-size: 1.18rem;
-      color: #6ee7b7;
-      letter-spacing: 2.5px;
-      text-shadow: 0 2px 8px #23294644;
-      font-weight: 600;
-      opacity: 0;
-      transform: translateY(30px) scale(0.98);
-      display: block;
-    }
-    @media (max-width: 500px) {
-      .phish-main { font-size: 0.97rem; }
-      .phish-sub { font-size: 0.89rem; }
-    }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
   <script>
-    // Animate background shapes with anime.js (faster, more visible movement)
-    anime({
-      targets: '.bg1',
-      translateX: [
-        { value: 0, duration: 0 },
-        { value: 220, duration: 2500, easing: 'easeInOutSine' },
-        { value: -120, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      translateY: [
-        { value: 0, duration: 0 },
-        { value: 160, duration: 2500, easing: 'easeInOutSine' },
-        { value: -80, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      direction: 'alternate',
-      loop: true
-    });
-    anime({
-      targets: '.bg2',
-      translateX: [
-        { value: 0, duration: 0 },
-        { value: -180, duration: 2500, easing: 'easeInOutSine' },
-        { value: 120, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      translateY: [
-        { value: 0, duration: 0 },
-        { value: -180, duration: 2500, easing: 'easeInOutSine' },
-        { value: 100, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      scale: [
-        { value: 1, duration: 0 },
-        { value: 1.22, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0.92, duration: 2500, easing: 'easeInOutSine' },
-        { value: 1, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      direction: 'alternate',
-      loop: true
-    });
-    anime({
-      targets: '.bg3',
-      translateX: [
-        { value: 0, duration: 0 },
-        { value: 120, duration: 2500, easing: 'easeInOutSine' },
-        { value: -60, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      translateY: [
-        { value: 0, duration: 0 },
-        { value: 90, duration: 2500, easing: 'easeInOutSine' },
-        { value: -60, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      scale: [
-        { value: 1, duration: 0 },
-        { value: 1.28, duration: 2500, easing: 'easeInOutSine' },
-        { value: 0.88, duration: 2500, easing: 'easeInOutSine' },
-        { value: 1, duration: 2500, easing: 'easeInOutSine' }
-      ],
-      direction: 'alternate',
-      loop: true
+    // Background animation
+    const bgConfigs = [
+      { el: '.bg1', x: [0, 220, -120, 0], y: [0, 160, -80, 0], scale: [1,1,1,1] },
+      { el: '.bg2', x: [0,-180,120,0], y: [0,-180,100,0], scale: [1,1.22,0.92,1] },
+      { el: '.bg3', x: [0,120,-60,0], y: [0,90,-60,0], scale: [1,1.28,0.88,1] }
+    ];
+
+    bgConfigs.forEach(cfg => {
+      anime({
+        targets: cfg.el,
+        translateX: cfg.x.map(v => ({ value: v, duration: 2500, easing: 'easeInOutSine' })),
+        translateY: cfg.y.map(v => ({ value: v, duration: 2500, easing: 'easeInOutSine' })),
+        scale: cfg.scale.map(v => ({ value: v, duration: 2500, easing: 'easeInOutSine' })),
+        direction: 'alternate',
+        loop: true
+      });
     });
 
-    // Animate card 3D tilt on mouse move
+    // Card tilt
     const card = document.getElementById('signin-container');
     card.addEventListener('mousemove', e => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left - rect.width/2;
       const y = e.clientY - rect.top - rect.height/2;
-      anime({
-        targets: card,
-        rotateY: x/18,
-        rotateX: -y/18,
-        scale: 1.025,
-        duration: 400,
-        easing: 'easeOutExpo'
-      });
+      anime({ targets: card, rotateY: x/18, rotateX: -y/18, scale: 1.025, duration: 400, easing: 'easeOutExpo' });
     });
     card.addEventListener('mouseleave', () => {
-      anime({
-        targets: card,
-        rotateY: 0,
-        rotateX: 0,
-        scale: 1,
-        duration: 600,
-        easing: 'easeOutExpo'
-      });
+      anime({ targets: card, rotateY: 0, rotateX: 0, scale: 1, duration: 600, easing: 'easeOutExpo' });
     });
 
-    // Animate phishing titles
-    anime({
-      targets: '.phish-main',
-      opacity: [0, 1],
-      translateY: [30, 0],
-      scale: [0.98, 1],
-      duration: 900,
-      delay: 300,
-      easing: 'easeOutExpo'
-    });
-    anime({
-      targets: '.phish-sub',
-      opacity: [0, 1],
-      translateY: [30, 0],
-      scale: [0.98, 1],
-      duration: 900,
-      delay: 800,
-      easing: 'easeOutExpo'
-    });
+    // Phish titles animation
+    anime({ targets: '.phish-main', opacity:[0,1], translateY:[30,0], scale:[0.98,1], duration:900, delay:300, easing:'easeOutExpo' });
+    anime({ targets: '.phish-sub', opacity:[0,1], translateY:[30,0], scale:[0.98,1], duration:900, delay:800, easing:'easeOutExpo' });
 
     function handleCredentialResponse(response) {
+      // Redirect after successful Google Sign-In
       window.location.href = 'http://127.0.0.1:8080/index.html';
     }
   </script>

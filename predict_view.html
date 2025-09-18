@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Email Risk Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg:#111827; --card:#1f2937; --text-main:#f3f4f6; --text-secondary:#94a3b8;
+  --accent:#3b82f6; --green:#22c55e; --yellow:#facc15; --red:#ef4444; --shadow:0 4px 20px rgba(0,0,0,0.3);
+}
+body { margin:0; font-family:'Share Tech Mono', monospace; background:var(--bg); color:var(--text-main); }
+.container { max-width:900px; margin:40px auto; padding:28px; background:var(--card); border-radius:16px; box-shadow:var(--shadow); }
+.back-btn { margin-bottom:24px; padding:10px 16px; border:none; border-radius:8px; cursor:pointer; background:var(--accent); color:#111827; font-weight:600; transition:all .3s; }
+.back-btn:hover { background:#2563eb; color:#fff; transform:translateY(-2px); }
+
+.header-row { display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; }
+.title { font-size:1.5rem; font-weight:700; color:var(--accent); }
+.meta { font-size:0.9rem; color:var(--text-secondary); }
+
+.risk-badge { padding:6px 12px; border-radius:10px; font-weight:800; border:2px solid; display:inline-block; margin-bottom:6px; }
+.risk-badge.low{ color:var(--green); border-color:var(--green); }
+.risk-badge.medium{ color:var(--yellow); border-color:var(--yellow); }
+.risk-badge.high{ color:var(--red); border-color:var(--red); }
+
+.score-bar-container { background:#272f3b; border-radius:8px; height:22px; margin-top:8px; overflow:hidden; }
+.score-bar { height:100%; transition:width .6s ease; }
+.score-bar.low{ background:var(--green); }
+.score-bar.medium{ background:var(--yellow); }
+.score-bar.high{ background:var(--red); }
+
+.section { margin-top:24px; }
+.section h3 { font-size:1.2rem; color:var(--accent); margin-bottom:12px; display:flex; align-items:center; }
+.score-list { list-style:none; padding:0; margin:0; }
+.score-list li { background:#272f3b; margin-bottom:6px; padding:10px 14px; border-radius:8px; font-size:.95rem; }
+.score-list li strong { color:var(--accent); }
+
+.explanation-box { background:#272f3b; padding:16px 18px; border-radius:12px; max-height:300px; overflow-y:auto; }
+.explanation-list { margin:0; padding-left:20px; }
+.explanation-list li { margin-bottom:10px; line-height:1.5; font-size:.95rem; }
+
+.email-card { margin-top:22px; padding:14px 18px; background:#272f3b; border-radius:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all .2s; }
+.email-card:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
+.dropdown-btn { background:var(--accent); border:none; color:#111827; font-weight:800; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; transition:all .3s; }
+.dropdown-btn:hover { background:#2563eb; color:#fff; transform:scale(1.1); }
+
+.modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:1000; display:flex; align-items:center; justify-content:center; }
+.modal-content { background:#1f2937; padding:24px; border-radius:12px; max-width:700px; width:90%; color:var(--text-main); animation:modalFade .3s ease; }
+.close { float:right; font-size:24px; cursor:pointer; }
+@keyframes modalFade { from{opacity:0;transform:translateY(20px);} to{opacity:1;transform:none;} }
+
+.toggle-btn { margin-left:12px; padding:4px 8px; border:none; border-radius:6px; background:var(--accent); color:#111827; cursor:pointer; font-weight:600; }
+.toggle-btn:hover { background:#2563eb; color:#fff; }
+</style>
+</head>
+<body>
+<div class="container">
+  <button class="back-btn" onclick="window.location.href='index.html'">&larr; Back to Inbox</button>
+
+  <div class="header-row">
+    <div>
+      <div class="title">Email Risk Summary</div>
+      <div id="meta-from" class="meta">Loading sender…</div>
+    </div>
+    <div style="text-align:right">
+      <div id="meta-subject" class="meta">—</div>
+      <div id="meta-date" class="meta" style="margin-top:6px">—</div>
+    </div>
+  </div>
+
+  <div id="risk-summary">Loading…</div>
+
+  <div id="email-card" class="email-card" style="display:none" onclick="openModal()">
+    <span id="email-title">Message</span>
+    <button class="dropdown-btn">+</button>
+  </div>
+
+  <!-- ML Section -->
+  <div id="ml-scores" class="section" style="display:none">
+    <h3>ML Risk Scores</h3>
+    <ul class="score-list"></ul>
+  </div>
+
+  <!-- Gemini Section -->
+  <div id="gemini-explanation" class="section" style="display:none">
+    <h3>Why This Email Was Flagged</h3>
+    <div class="explanation-box">
+      <ul class="explanation-list"></ul>
+    </div>
+  </div>
+
+  <!-- Anomaly Detection Section -->
+  <div id="anomaly-section" class="section">
+    <h3>Anomaly Detection Result
+      <button id="toggle-anomaly" class="toggle-btn">+</button>
+    </h3>
+    <div id="anomaly-content" style="display:none; background:#272f3b; padding:12px 16px; border-radius:8px; margin-top:6px;">
+      <!-- Filled dynamically -->
+    </div>
+  </div>
+</div>
+
+<div id="emailModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalSubject"></h2>
+    <p id="modalBody" style="line-height:1.5;white-space:pre-wrap"></p>
+  </div>
+</div>
+
+<script>
+let emailData = {};
+
+function escapeHtml(s){ return s ? String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') : ''; }
+function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
+function riskClassFromScore(score){ return score>=70?'high':score>=40?'medium':'low'; }
+
+function openModal(){
+  document.getElementById('modalSubject').innerText = emailData.subject || '';
+  document.getElementById('modalBody').innerText = emailData.body || 'No content';
+  document.getElementById('emailModal').style.display = 'flex';
+}
+function closeModal(){ document.getElementById('emailModal').style.display = 'none'; }
+
+(async function(){
+  const params = new URLSearchParams(window.location.search);
+  const file = params.get('file'); if(!file) return;
+
+  try {
+    const res = await fetch('/parsed_emails/'+encodeURIComponent(file));
+    const parsed = await res.json();
+
+    emailData = parsed.email || {};
+    document.getElementById('meta-from').textContent = emailData.from || 'Unknown';
+    document.getElementById('meta-subject').textContent = emailData.subject || '';
+    document.getElementById('meta-date').textContent = emailData.date || '';
+
+    const ml = parsed.ml_result || {};
+    const gemini = parsed.gemini_result || {};
+    const score = Number(ml.risk_score ?? ml.final_score ?? ml.ml_score ?? 0);
+    const rclass = riskClassFromScore(score);
+
+    // Risk summary
+    document.getElementById('risk-summary').innerHTML = `
+      <span class="risk-badge ${rclass}">${rclass.toUpperCase()} Risk</span>
+      <div style="margin-top:8px">Primary Score: <b>${score}</b></div>
+      <div class="score-bar-container">
+        <div class="score-bar ${rclass}" style="width:${clamp(score,0,100)}%"></div>
+      </div>
+    `;
+
+    // ML Scores
+    const scoreList = document.querySelector('#ml-scores .score-list');
+    scoreList.innerHTML = '';
+    Object.entries(ml).forEach(([k,v])=>{
+      if(typeof v==='number') scoreList.innerHTML += `<li><strong>${escapeHtml(k)}</strong>: ${v}</li>`;
+    });
+    document.getElementById('ml-scores').style.display = scoreList.innerHTML?'block':'none';
+
+    // Gemini Explanation
+    let explanation = gemini.explanation || ml.explanation || ml.key_factors || [];
+    if(!Array.isArray(explanation)) explanation=[explanation];
+    const expList = document.querySelector('#gemini-explanation .explanation-list');
+    expList.innerHTML='';
+    explanation.forEach(line=>{
+      if(typeof line==='string'){
+        line.split(/[\.\n]+/).forEach(sent=>{
+          const clean = sent.trim().replace(/\*+/g,'');
+          if(clean) expList.innerHTML += `<li>${escapeHtml(clean)}</li>`;
+        });
+      }
+    });
+    document.getElementById('gemini-explanation').style.display = expList.innerHTML?'block':'none';
+
+    // Email Card
+    document.getElementById('email-title').textContent=emailData.subject||'Message';
+    document.getElementById('email-card').style.display='flex';
+
+    // --- Anomaly Section ---
+    const anomaly = parsed.anomaly_result || null;
+    const anomalyDiv = document.getElementById('anomaly-content');
+    if(anomaly){
+      anomalyDiv.innerHTML = `
+        <ul style="padding-left:20px;margin:0;">
+          <li><strong>Anomaly Score:</strong> ${anomaly.anomaly_score ?? 'N/A'}</li>
+          <li><strong>Is Anomaly:</strong> ${anomaly.is_anomaly ? 'Yes' : 'No'}</li>
+          <li><strong>Hour of Email:</strong> ${anomaly.hour ?? 'N/A'}</li>
+          <li><strong>Day of Week:</strong> ${anomaly.day_of_week ?? 'N/A'}</li>
+          <li><strong>Body Length:</strong> ${anomaly.body_length ?? 'N/A'}</li>
+        </ul>
+      `;
+    } else {
+      anomalyDiv.innerHTML = `<p>No anomaly data available.</p>`;
+    }
+    document.getElementById('anomaly-section').style.display='block';
+
+    // Toggle anomaly
+    const toggleBtn = document.getElementById('toggle-anomaly');
+    toggleBtn.addEventListener('click',()=>{
+      if(anomalyDiv.style.display==='none'){ 
+        anomalyDiv.style.display='block'; 
+        toggleBtn.textContent='−'; 
+      } else { 
+        anomalyDiv.style.display='none'; 
+        toggleBtn.textContent='+'; 
+      }
+    });
+
+  } catch(err){
+    document.getElementById('risk-summary').textContent='Failed to load: '+err.message;
+  }
+})();
+</script>
+</body>
+</html>

@@ -24,7 +24,7 @@ from backend.services.gemini_service import analyze_email
 EMAIL_ACCOUNT = "radio.heads1709@gmail.com"  # Replace with your Gmail
 APP_PASSWORD = "gdjunmbwlmndvezg"            # Replace with App Password
 IMAP_HOST = "imap.gmail.com"
-SAVE_DIR = "saved_emails"
+SAVE_DIR = "parsed_emails"
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 # ----------------------------
@@ -32,7 +32,6 @@ os.makedirs(SAVE_DIR, exist_ok=True)
 # ----------------------------
 def clean_html(raw_html: str) -> str:
     """Remove HTML tags and return plain text."""
-    from bs4 import BeautifulSoup
     soup = BeautifulSoup(raw_html, "html.parser")
     return soup.get_text()
 
@@ -61,8 +60,8 @@ def sanitize_filename(text: str) -> str:
     """Make text safe for filenames."""
     return "".join(c for c in text if c.isalnum() or c in ("-", "_"))
 
-def save_email_as_json(email_dict: dict):
-    """Save raw email as JSON file in saved_emails/."""
+def save_email_as_json(email_dict: dict) -> str:
+    """Save raw email as JSON file in saved_emails/ and return filepath."""
     timestamp = datetime.now().strftime("%Y%m%d-%H%M%S")
     sender = sanitize_filename(email_dict.get("from", "unknown"))
     filename = f"email-{timestamp}-{sender}.json"
@@ -114,7 +113,12 @@ def fetch_and_analyze_emails():
         print(f"📊 ML Result: {ml_result}")
 
         # Generate Gemini explanation
-        gemini_result = analyze_email(email_dict["body"])
+        gemini_result = analyze_email(
+            email_dict["body"],
+            rule_score=ml_result["rule_score"],
+            ml_score=ml_result["ml_score"],
+            final_score=ml_result["final_score"]
+        )
         print(f"💬 Gemini Explanation:\n{gemini_result['explanation']}")
         print("-" * 80)
 

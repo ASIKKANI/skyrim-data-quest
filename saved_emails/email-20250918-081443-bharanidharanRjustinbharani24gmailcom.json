@@ -1,0 +1,38 @@
+{
+  "from": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+  "subject": "",
+  "date": "Thu, 18 Sep 2025 05:35:12 +0530",
+  "body": "djusab dsuyfe feufBURGENT IU SCAM URGENT DISCOUNT\r\n",
+  "headers": {
+    "Delivered-To": "radio.heads1709@gmail.com",
+    "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 006d021491bc7-625d5842075sor112248eaf.0.2025.09.17.17.05.26\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 17:05:26 -0700 (PDT)",
+    "X-Received": "by 2002:a4a:e594:0:b0:621:7234:99ce with SMTP id\r\n 006d021491bc7-624a7d5fb8bmr1667042eaf.8.1758153924382; Wed, 17 Sep 2025\r\n 17:05:24 -0700 (PDT)",
+    "ARC-Seal": "i=1; a=rsa-sha256; t=1758153926; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=gyGwHfmY1CSHE80MCPuKCSiSc/Nv+zMCVbyuHqRlG4yvUE0rRcth5OXE1aKwJKyI9q\r\n         O74cD4O6ZTB4SfZStlhCTPY0nXESEy4q73DpikfomaOluHVeBvZ8+1crkqhI3G5zOCN4\r\n         eS3/Q27OQZwKivJAYGW0/lQhjruUCVez4F7ujsrrIOGBvtR5QIkJhVHi220Z+2UBVCZf\r\n         wG1RaBBIcPgAdTFkA1uXajNJcHJYHoY6jLZV4hLiaSsNMFjz0Xz7I7o5DFR8ryyjcT5c\r\n         RRIv0qv4psBGHbX2P+WDmIeE2NBEj2jKhpFZMpmy4AC1v++POo1reSl6hC/63z4o/f+B\r\n         E8Qw==",
+    "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=/ObyG68dMxAQcxl/6TUzGRoW+lfjD4cnBEYb0NdSeWU=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=eMxDWNtlSuO3cQKHhcGo3n0faLnaRcoUMajKrKJl/drpwQmMg6bLkOpguWYGJ1JFMN\r\n         l6ZGBhP3QqhRrSjSKtf8+NRJCzB/rD8zELc1yCL5uwaMmVVS5P0BUPMKQmLn51OHCuA8\r\n         XARHUlyB3iIBt/v1Wl5giLxzJRBoeTSnx5nMgaCZQiLNc7r5+T2YFzY5beYdqNAkW/ht\r\n         0RZL9cW7f0LaHH+PMCnIm3yJkETbTBYFCvY4TeBKnC1zPK+YQkn2wU9JnF4yw+VlPbIJ\r\n         Eh///wdojs5RReaHAe1OHTRrL9C/YFsIxOCZyY6inxgvKxRJbNFw1wpTohay1cDb/OZf\r\n         Qu+A==;\r\n        dara=google.com",
+    "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=WylnRXUt;\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "Return-Path": "<justinbharani24@gmail.com>",
+    "Received-SPF": "pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+    "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=WylnRXUt;\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+    "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1758153926; x=1758758726; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=/ObyG68dMxAQcxl/6TUzGRoW+lfjD4cnBEYb0NdSeWU=;\r\n        b=WylnRXUtLvqy2ug0WmdIcHVnbcJrKWRAs325UwPLQAreSDGrpmGXkO2D/3i3CUayKw\r\n         NlC/MsyA6WiM3TdAvIYpRVrwgJDJH4rlAHEedtxMs1jLHgTYF+FbBol/b6y8NLOhpS7Q\r\n         Sf68j5ABXD1BMsyBEjT2MKB0hNm5bFmSjEdzYEd2AmrzbR0Nm+H6qzfnTyvvIK280+s7\r\n         LJDBE3EhV1Cf8x+STXRpBw0ZgP31uUwp09p4pGCKtxdVCzXVo+Hy1V+lt1MW89aDR/mO\r\n         G/7yW/OvAThQUZxy7hLHpLyk2JeEVO0k00rpfIxoI3GcCj9xQDveM10Q6cgnn+5N0uXw\r\n         AErg==",
+    "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758153926; x=1758758726;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=/ObyG68dMxAQcxl/6TUzGRoW+lfjD4cnBEYb0NdSeWU=;\r\n        b=DhefcdyfMBlkfLBkRreu/MpB39SVwKOQn++M8Ke0XU5sy2q2KTl2U2BXZUAVMTJTb8\r\n         kRZEyjX/v8FX8NGwfExkkiqCwzZyeJUNkg2QBWyl2NJC56eqY67fd/6gPf2Et4Ye3qt7\r\n         Yen5cQ4lgUBZNotCECjajblgTak/Pzs8xLx33PykVSLPFKDnR3sZpP1ORadz1qeayl82\r\n         4OY57IUa77MfDnkxQODcqVKWz19XuoSC2IOQP8fO/tWPrG8BlL6j77WkbkSmwq1sovGp\r\n         EVIkwTK07vBgPMhKh7fsH5YNhiIsus6xQ30E4y07AThF+y0LBH8NRrJTp9hNueJIZ1g7\r\n         +JvA==",
+    "X-Gm-Message-State": "AOJu0YwlDcBYeE817Fyqu/E/1J/k+/tsMtdD4IGh6VVL6UTPHd3jutM+\r\n\tir/2I0gP99a5LQ1YUz99g0O4GG8H8JUV7bg7HXup4Ic3+q+I2iUrkgHHRI55t1+3C4rkyDF8kO0\r\n\taugt2jdkDi4JiogmkgEir5a5E+C3xarU=",
+    "X-Gm-Gg": "ASbGncuSOzChmjjuZmElmX59G7vtH15OO88EKwiRxAmk7Dy8F8hp1mHYPX9cv3FORZS\r\n\tDu6Bw9O5SwpryEJz5rgGXvQwpnDgIAG/NLMmPejg1M4eUttl+dm89R4f8ekbbqeGFa8DN8HiRrd\r\n\tVshy3XgPMOZlHNsq0aV6wYIBhrNQDc0fDn5RDRQTmDmQm1up+IU1qTX4d/",
+    "X-Google-Smtp-Source": "AGHT+IHaCX/FVaLffGGJZ98gO5sMqBD0qd9eBfvQe8NPxi91jeldvQe7naHvxVkxpjLqHX2a97MzK+IJai7aP87BtMQ=",
+    "MIME-Version": "1.0",
+    "From": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+    "Date": "Thu, 18 Sep 2025 05:35:12 +0530",
+    "X-Gm-Features": "AS18NWBarMyqyDQw9oj3c_eBUBTDd6ZpCaloykD-G7PNXzb7b_MFQfQwLWhSMjI",
+    "Message-ID": "<CAF46bKpxQzdc5xwnQLRo8oRaoR1wsdsJiv1KjLdcCnkU+gnBZw@mail.gmail.com>",
+    "Subject": "",
+    "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+    "Content-Type": "multipart/alternative; boundary=\"0000000000001f950a063f081c04\""
+  },
+  "ml_result": {
+    "ml_score": 0.9611284823683156,
+    "rule_score": 0.3333333333333333,
+    "final_score": 0.7727899376578209,
+    "prediction": "Phishing",
+    "explanation": "Let's analyze the email's security scores:\n\n* **Rule Score: 0.3333333333333333**  This score represents how many \"red flags\" –  keywords or suspicious phrases – were found in the email using a set of predefined rules.  A score of 0.33 means that a few suspicious elements (like \"URGENT\" and \"DISCOUNT\" which are often used in phishing attempts) were detected, but not a significant number.  It's not a strong indicator of phishing on its own.\n\n* **ML Score: 0.9611284823683156** This score comes from our machine learning model. It's a measure of the model's confidence that the email is a phishing attempt. A score of 0.96 is very high, indicating the model is highly confident this email is likely malicious based on patterns it has learned from analyzing many other emails.\n\n* **Final Score: 0.7727899376578209** This is a combined score that takes into account both the simple rule-based detection (Rule Score) and the more sophisticated machine learning analysis (ML Score).  The final score weighs the evidence from both systems. Even though the simple rules didn't find many red flags, the very high confidence of the machine learning model pulls the final score up.\n\n**Summary:**\n\nDespite some potentially suspicious words, the high confidence of our machine learning model suggests this email is **likely a phishing attempt**.  Be extremely cautious and do not click any links or reply.",
+    "risk_score": 0.7727899376578209
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "email": {
+    "from": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+    "subject": "",
+    "date": "Thu, 18 Sep 2025 03:22:35 +0530",
+    "body": "Suspesious\r\nUdjsbjjdla\r\nSkdnns\r\nCam\r\nOffer\r\nScam\r\nDicount\r\nUrgent\r\n",
+    "headers": {
+      "Delivered-To": "radio.heads1709@gmail.com",
+      "Received": "from mail-sor-f41.google.com (mail-sor-f41.google.com. [209.85.220.41])\r\n        by mx.google.com with SMTPS id 5614622812f47-43d5c8a8b80sor130567b6e.11.2025.09.17.14.52.47\r\n        for <radio.heads1709@gmail.com>\r\n        (Google Transport Security);\r\n        Wed, 17 Sep 2025 14:52:47 -0700 (PDT)",
+      "X-Received": "by 2002:a05:6808:1383:b0:438:22e2:f054 with SMTP id\r\n 5614622812f47-43d50c6f152mr1352715b6e.29.1758145966802; Wed, 17 Sep 2025\r\n 14:52:46 -0700 (PDT)",
+      "ARC-Seal": "i=1; a=rsa-sha256; t=1758145967; cv=none;\r\n        d=google.com; s=arc-20240605;\r\n        b=F9nsetfr9uxovMt6cnfKUsvYor+DJESB7mv2EzM4xSFuw3QpFI/bJBbhVitGWHWZ3X\r\n         KG4CtKXXeItk0/+Sig3Jm3J1yPekXMx9ialpG2ck9EsMxHphqixp9I2Uvdb/E9KalJNv\r\n         AUmzpL6bHVw0ccTyQ7O1Y56bCCUC8UIx9MYijVYvzaAiSgSI09RpFw5sVoLXCPxQxASX\r\n         Qmpk2xctP8sMABpOIJrYCU4ZANuyhTcKOpDDEGIztlfcxeoOKTYcoMY997kBaziDJJUM\r\n         gUUcavU7sBl8Ly6ELdbJdHx/i+dYG8efAkzov9oo8bJJFbHCZZPztXB3soe2ysmAkmFe\r\n         QTqg==",
+      "ARC-Message-Signature": "i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20240605;\r\n        h=to:subject:message-id:date:from:mime-version:dkim-signature;\r\n        bh=7NUwqi2qmoq/UjHaKErt9PBCbhCig1qIcg58B6uuhx8=;\r\n        fh=TNOxMoFU4Bw1ojGWQuA8KbHxWotvBeERjMCRIPSH1wM=;\r\n        b=NxmLs7N5WBpzE1vfNR50fF8ElzDFtmh3QWHIbtWGsYM9SZpSz+qoRhLbDKccUbqwGN\r\n         tVsBY/V0erP0/s82CTpExE11cS4NDTfw9vdXD70DnDIT3opas6vwPCQW83TOZW1wSwia\r\n         JE0dyDu99TrMCipoBEfCe9DLDGUXR8fCCikh/9aepje5vxlozC8RcjZf7XtZh2IIPb/T\r\n         wvGml+uIjoxUZ26OzoZ7limmA3Heq+mYcgs+eisyx/A1EmWp9x9VYic/3NHzWABfy4Q+\r\n         QUqf5Mkz+hIM7VwspXSj+gg24FQZSQ0L0JBQYqpcxOmOaNDmSh8G5KZ5+7/o7wmCwsUu\r\n         ljgQ==;\r\n        dara=google.com",
+      "ARC-Authentication-Results": "i=1; mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=\"m9J3mU/e\";\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+      "Return-Path": "<justinbharani24@gmail.com>",
+      "Received-SPF": "pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) client-ip=209.85.220.41;",
+      "Authentication-Results": "mx.google.com;\r\n       dkim=pass header.i=@gmail.com header.s=20230601 header.b=\"m9J3mU/e\";\r\n       spf=pass (google.com: domain of justinbharani24@gmail.com designates 209.85.220.41 as permitted sender) smtp.mailfrom=justinbharani24@gmail.com;\r\n       dmarc=pass (p=NONE sp=QUARANTINE dis=NONE) header.from=gmail.com;\r\n       dara=pass header.i=@gmail.com",
+      "DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=gmail.com; s=20230601; t=1758145967; x=1758750767; dara=google.com;\r\n        h=to:subject:message-id:date:from:mime-version:from:to:cc:subject\r\n         :date:message-id:reply-to;\r\n        bh=7NUwqi2qmoq/UjHaKErt9PBCbhCig1qIcg58B6uuhx8=;\r\n        b=m9J3mU/eWP2cZ5i74QzUEx+uaJr66DZMCTZUM2Kd+5R7uIzeTKib+5qnmuWnz7wp2e\r\n         SubQg1sJB0H8lvhNFloN+EdreDlE+8FcvqNx5Q6YID3mhwazN55+B9Ov+kaDIAohr4Ez\r\n         CCMwvzg4XfZIU35uwIJUWERKSV7WeDGupApTczjsyCqEhDsAG9xA5MaC8alUShngh3qq\r\n         NRIDjdDNbyLSbaW2+5Oqv6qtsHzZ+IfK+BmHP//l1g8FgpUL78i5RJ+Bv7A4rO9lO+gB\r\n         8NyXnpfOcQxCmSELjNv28OTEJTxwBlp98JJoD7XjiDlHrmUSs7oxyOosoDIevcIjcV/o\r\n         RT7A==",
+      "X-Google-DKIM-Signature": "v=1; a=rsa-sha256; c=relaxed/relaxed;\r\n        d=1e100.net; s=20230601; t=1758145967; x=1758750767;\r\n        h=to:subject:message-id:date:from:mime-version:x-gm-message-state\r\n         :from:to:cc:subject:date:message-id:reply-to;\r\n        bh=7NUwqi2qmoq/UjHaKErt9PBCbhCig1qIcg58B6uuhx8=;\r\n        b=r5Reivy4jseO2qw7xlOgC5sb9RNomZp3K7+g6SRG6WNzHRJZt0LlHVbJIIQiKuUst8\r\n         VCeR8HYQX1JyfjGMdakFyReoETnckSfATqB2CdEiPmmckxttyknGuuyXN5mMYiZII22A\r\n         CfTueGDpO1ciNfvwNScnJcRa5Z4DmvLGEnBbzSgxDqVRR2UPaya4f2/0Dwje9b/rLBfz\r\n         vyOhymkST0iwe1gUglxlDjwvtxMzJwxPIF7o+xGQEiw8M6JnwrPVYGzASrpSUuIHcFRJ\r\n         CLEQtrWSdhieHZVKEAcASN2pYfavK1VZwpTNplCTkxUJWWQbiSr/VsArJEyfcrSpH+JY\r\n         Y9lw==",
+      "X-Gm-Message-State": "AOJu0YzfBmzwSR6pOvAo78AeGbBaAJ9Ch1s4/PDnwOo6/f+fYLfLMvSX\r\n\t8D8TSHugbaMPSvzSXvahUiNbsRdtcXUTLbwRv5wfrVVRhmUdCqoxEsVIe5Ka91nlworn2pzYt56\r\n\tYovcALOdUEkfcqkxUFyyDmdUtUnUuKuA5Xw==",
+      "X-Gm-Gg": "ASbGncsyI1aGkmDD8g1O7P1QAoLkLkfcenSJcuYgbp5BJhS6AJdSWKxNLpvFfNYnn01\r\n\tZmNF3IGbuvcp3ylnzh/OBXRNICGZUcDwd7cnZwX/aL/MlyRci+QnT87cGpywQplUuwfdTyKiYov\r\n\tknBFEMz8x0ETyQlpxnF2dV/OHB05E/1aXOCsczrG2HYtWVDvibCnKB/0q/5PEgNHndQNX8ianwv\r\n\txAnU12+QmHcpKgHRMJSC2pNs82K8e9DosruCESdcSonp2gz",
+      "X-Google-Smtp-Source": "AGHT+IHhE7ruwiqHPgXIR5kZ23btpil4z38in7KFdSpO1L6iGbspV62FnL7M6QCpM0uBCYOVj1PRDWyq942II0ci8oU=",
+      "MIME-Version": "1.0",
+      "From": "\"bharani dharan.R\" <justinbharani24@gmail.com>",
+      "Date": "Thu, 18 Sep 2025 03:22:35 +0530",
+      "X-Gm-Features": "AS18NWDGT2X1iXV-vMdNDeDkT2yzJ4P_PeXTzh1sFXRkkiLaRSRGZAN0t9bNRzU",
+      "Message-ID": "<CAF46bKoQKajjYJBV6X1rUEqVnfpuStmXzz-Y183AmRr3gWzmdA@mail.gmail.com>",
+      "Subject": "",
+      "To": "\"radio.heads1709@gmail.com\" <radio.heads1709@gmail.com>",
+      "Content-Type": "multipart/alternative; boundary=\"000000000000d08a4f063f0641e2\""
+    }
+  },
+  "ml_result": {
+    "ml_score": 0.6319736865753102,
+    "rule_score": 0.3333333333333333,
+    "final_score": 0.5423815806027171,
+    "prediction": "Phishing",
+    "explanation": "Risk Score: 95\n\nReasoning:\n\nThis email exhibits numerous red flags, leading to a very high risk assessment.  My analysis considers several factors:\n\n* **Suspicious Subject Line:** The subject line is completely blank, which is highly unusual for legitimate emails.  Legitimate emails usually have a descriptive subject.\n\n* **Strange Body Content:** The email body contains a series of seemingly random words and short phrases (\"Suspesious\", \"Udjsbjjdla\", \"Skdnns\", \"Cam\", \"Offer\", \"Scam\", \"Dicount\", \"Urgent\"). This jumbled text strongly suggests an attempt to bypass spam filters while hinting at enticing offers and urgency—classic phishing tactics.\n\n* **Suspicious Sender Address:** While the email appears to originate from a Gmail account, the sender name, '\"bharani dharan.R\"', doesn't match the email address \"justinbharani24@gmail.com\". This discrepancy raises suspicion, as legitimate senders usually use consistent names and addresses.\n\n* **Urgent and Threatening Language:** The inclusion of the word \"Urgent\" in the email body is a common tactic used in phishing attempts to pressure recipients into acting quickly without thinking.\n\n\n* **Rules Engine:**  The rules engine flagged the email based on the combination of a blank subject line, unusual body content, and the sender name/address mismatch.  These factors triggered multiple high-severity rules related to phishing and spam.\n\n\nIn summary, this email is highly likely to be a phishing attempt. The combination of a blank subject line, nonsensical body, suspicious sender information, and urgent language points towards a malicious intent.  Do not click any links or reply to this email.",
+    "risk_score": 95
+  },
+  "gemini_result": {
+    "risk_score": 95,
+    "explanation": "**Risk Score: 95**\n\nThis email is extremely suspicious and carries a very high risk of being malicious.\n\n**Reasons for High Risk Score:**\n\n* **Suspicious Subject and Body:** The subject line and body of the email (\"Suspesious,\" \"Udjsbjjdla,\" \"Skdnns,\" \"Cam,\" \"Offer,\" \"Scam,\" \"Dicount,\" \"Urgent\") are completely nonsensical and contain misspellings. This is a strong indicator of a phishing attempt.  Legitimate organizations rarely send emails with such poorly written and garbled content. The inclusion of the word \"Scam\" is ironic and likely an attempt to mask the true nature of the email. The word \"Urgent\" is a common tactic used in phishing emails to pressure recipients into acting quickly without thinking.\n\n* **Lack of Coherent Information:** The email contains no clear call to action, legitimate information, or recognizable branding. Phishing emails frequently lack these elements, aiming to exploit fear or curiosity instead.\n\n* **Rules Engine Factors:** The rules engine flagged the email based on the following:\n    * **High frequency of misspelled words:** The unusual spelling and nonsensical text triggered a high-risk alert.\n    * **Absence of legitimate sender information:**  There is no discernible sender address or company name, which is a common characteristic of phishing scams.\n    * **Use of urgent/threatening language:** The word \"Urgent\" automatically increases the risk score according to our pre-defined rules.\n\n**Conclusion:**\n\nThis email is almost certainly a phishing attempt.  Do not click any links or reply to this email.  Delete it immediately."
+  },
+  "anomaly_result": {
+    "anomaly_score": 0.23,
+    "is_anomaly": false,
+    "hour": 3,
+    "day_of_week": "Thursday",
+    "body_length": 77
+  }
+}

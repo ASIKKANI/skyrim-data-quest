@@ -45,15 +45,22 @@ def run_model_pipeline(email_data: dict):
     }
 
     # -------------------- Gemini Explanation --------------------
+    # -------------------- Gemini Explanation --------------------
     try:
-        clean_text = email_data.get("clean_text", "") or str(email_data)
-        gemini_result = analyze_email(clean_text)
+        clean_text = email_data.get("body", "") or email_data.get("clean_text", "") or str(email_data)
+        gemini_result = analyze_email(
+            clean_text,
+            rule_score,
+            ml_score,
+            final_score
+        )
         result["explanation"] = gemini_result.get("explanation", "Explanation not available.")
         result["risk_score"] = gemini_result.get("risk_score", -1)
     except Exception as e:
         print(f"⚠️ Failed to generate Gemini explanation: {e}")
         result["explanation"] = "Explanation not available."
         result["risk_score"] = -1
+
 
     return result
 
