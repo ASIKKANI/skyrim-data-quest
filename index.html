@@ -29,6 +29,11 @@ body {display:flex; flex-direction:column; overflow:hidden;}
 }
 .navbar .logo {display:flex; align-items:center; gap:12px;}
 .navbar .logo i {font-size:1.5em;}
+.navbar .chatbot-btn {
+  background: var(--accent); color: #111827; border: none; padding: 8px 16px;
+  border-radius: 12px; cursor: pointer; font-weight: 600; transition: all 0.3s;
+}
+.navbar .chatbot-btn:hover {background: #22c55e; color: #fff; transform: translateY(-2px);}
 
 .container {flex:1; display:flex; overflow:hidden;}
 #sidebar {
@@ -63,29 +68,13 @@ pre.email-body {
   border-radius:25px; cursor:pointer; transition:all 0.3s; align-self:flex-start;
 }
 .predict-btn:hover {background:#22c55e; color:#fff; transform:translateY(-2px);}
-
-#ask-ai-panel {
-  margin-top:20px; padding:20px; border-radius:12px; background:var(--hover-bg);
-  display:flex; flex-direction:column; gap:12px; box-shadow:var(--shadow);
-}
-#ask-ai-panel input {
-  width:100%; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:#111827; color:var(--text-main);
-}
-#ask-ai-panel button {
-  padding:10px 16px; border-radius:8px; border:none; background:var(--accent); color:#111827; font-weight:600; cursor:pointer;
-  transition:all 0.3s;
-}
-#ask-ai-panel button:hover {background:#22c55e; color:#fff;}
-#ask-ai-response {
-  background:#1f2937; padding:12px; border-radius:8px; font-size:0.95em; white-space:pre-wrap; color:var(--text-main);
-}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
 </head>
 <body>
 <div class="navbar">
   <div class="logo"><i class="fas fa-envelope"></i> <span>Inbox</span></div>
-  <div>skyrim-data-quest</div>
+  <button class="chatbot-btn" onclick="openChatbot()">Chatbot</button>
 </div>
 
 <div class="container">
@@ -113,13 +102,17 @@ function toggleSidebar() {
   sb.classList.toggle('collapsed', sidebarCollapsed);
 }
 
+function openChatbot() {
+  // Open chatbot.html in a new tab
+  window.open('chatbot.html', '_blank');
+}
+
 function parseSender(from) {
   if(!from) return {name:'', email:''};
   const match = from.match(/^(.*?)(?:\s*<(.+?)>)?$/);
   return {name: match?.[1]?.replace(/"/g,'').trim()||'', email:match?.[2]?.trim()||''};
 }
 
-// CHANGED: fetch from saved_emails instead of parsed_emails
 async function fetchEmailList() {
   const resp = await fetch('/parsed_emails/');
   const text = await resp.text();
@@ -137,19 +130,29 @@ async function loadEmailList(selectedFile) {
 
   for(const file of files.reverse()){
     try {
-      // CHANGED: fetch from saved_emails instead of parsed_emails
       const resp = await fetch('/parsed_emails/'+file);
       if(!resp.ok) continue;
       const parsed = await resp.json();
-      const email = parsed.email||{};
-      const sender=parseSender(email.from);
-      const div=document.createElement('button');
-      div.className='email-item';
+      const email = parsed.email || parsed;
+      const sender = parseSender(email.from);
+
+      let senderStr = '';
+      if(sender.name && sender.email) senderStr = `${sender.name} <${sender.email}>`;
+      else if(sender.name) senderStr = sender.name;
+      else if(sender.email) senderStr = sender.email;
+      else senderStr = 'Unknown sender';
+
+      const subjectStr = email.subject && email.subject.trim() ? email.subject : 'No Subject';
+      const dateStr = email.date ? email.date : '';
+      const bodyStr = email.body && email.body.trim() ? email.body : '';
+
+      const div = document.createElement('button');
+      div.className = 'email-item';
       div.innerHTML = `
-        <div class="subject">${email.subject || 'No Subject'}</div>
-        <div class="from">${sender.name||sender.email||'Unknown sender'}</div>
-        <div class="date">${email.date||''}</div>
-        <div class="preview">${(email.body||'').slice(0,60)}${email.body?.length>60?'...':''}</div>
+        <div class="subject">${subjectStr}</div>
+        <div class="from">${senderStr}</div>
+        <div class="date">${dateStr}</div>
+        <div class="preview">${bodyStr.slice(0,60)}${bodyStr.length>60?'...':''}</div>
       `;
       div.onclick = () => { window.location.hash=encodeURIComponent(file); showEmail(file, div); };
       listDiv.appendChild(div);
@@ -163,44 +166,39 @@ async function showEmail(filename, div) {
   if(div) div.classList.add('selected');
 
   try {
-    // CHANGED: fetch from saved_emails instead of parsed_emails
     const resp = await fetch('/parsed_emails/'+filename);
     if(!resp.ok) throw new Error();
     const parsed = await resp.json();
-    const email = parsed.email||{};
+    const email = parsed.email || parsed;
     const sender = parseSender(email.from);
 
+    let senderStr = '';
+    if(sender.name && sender.email) senderStr = `${sender.name} <${sender.email}>`;
+    else if(sender.name) senderStr = sender.name;
+    else if(sender.email) senderStr = sender.email;
+    else senderStr = 'Unknown sender';
+
+    const dateStr = email.date ? email.date : 'Unknown date';
+    const subjectStr = email.subject && email.subject.trim() ? email.subject : '(No Subject)';
+    let bodyStr = '';
+    if (typeof email.body === 'string' && email.body.replace(/[\s\r\n\u200c]+/g, '').length > 0) {
+      bodyStr = email.body;
+    } else if (typeof email.body === 'string') {
+      bodyStr = email.body;
+    } else {
+      bodyStr = 'No content';
+    }
+
     document.getElementById('main').innerHTML = `
-      <h2>${email.subject||'(No Subject)'}</h2>
-      <div class="from"><b>From:</b> ${sender.name?' '+sender.name:''}${sender.email?' <'+sender.email+'>' : ''}</div>
-      <div class="date"><b>Date:</b> ${email.date||''}</div>
-      <pre class="email-body">${email.body||''}</pre>
+      <h2>${subjectStr}</h2>
+      <div class="from"><b>From:</b> ${senderStr}</div>
+      <div class="date"><b>Date:</b> ${dateStr}</div>
+      <pre class="email-body">${bodyStr}</pre>
       <button class="predict-btn" id="predict-btn">Predict</button>
-      <div id="ask-ai-panel">
-        <input type="text" id="ask-ai-question" placeholder="Ask AI about this email..."/>
-        <button id="ask-ai-btn">Ask AI</button>
-        <div id="ask-ai-response">AI response will appear here.</div>
-      </div>
     `;
 
     document.getElementById('predict-btn').onclick = () => {
       window.location.href = `predict_view.html?file=${encodeURIComponent(filename)}`;
-    };
-
-    document.getElementById('ask-ai-btn').onclick = async () => {
-      const question = document.getElementById('ask-ai-question').value.trim();
-      if(!question) return;
-      const respDiv = document.getElementById('ask-ai-response');
-      respDiv.textContent = "Fetching AI response...";
-      try {
-        const response = await fetch(API_URL, {
-          method:'POST',
-          headers:{'Content-Type':'application/json'},
-          body: JSON.stringify({emailSubject: email.subject||'', emailBody: email.body||'', question})
-        });
-        const data = await response.json();
-        respDiv.textContent = data.answer || "❌ Failed to get AI response";
-      } catch(err) { respDiv.textContent = "❌ Failed to get AI response: "+err.message; }
     };
 
     anime({targets:'#main', opacity:[0,1], translateY:[20,0], duration:500, easing:'easeOutExpo'});

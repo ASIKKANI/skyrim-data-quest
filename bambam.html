@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SKYRIM Data Quest - Home</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+<style>
+* {
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+body, html {
+  height:100%;
+  font-family:'Share Tech Mono', monospace;
+  overflow-x:hidden;
+}
+body {
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:#111827;
+  color:#f3f4f6;
+  position:relative;
+}
+canvas {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+}
+.container {
+  text-align:center;
+  padding:20px;
+  max-width:900px;
+}
+h1 {
+  font-size:3em;
+  color:#4f46e5;
+  margin-bottom:10px;
+}
+h2 {
+  font-size:1.5em;
+  color:#10b981;
+  margin-bottom:20px;
+}
+p {
+  font-size:1.1em;
+  color:#cbd5e1;
+  margin-bottom:30px;
+  line-height:1.5em;
+}
+.btn {
+  padding:15px 40px;
+  font-size:1.2em;
+  font-weight:600;
+  border:none;
+  border-radius:25px;
+  cursor:pointer;
+  background: #4f46e5;
+  color:#fff;
+  transition: all 0.3s ease;
+}
+.btn:hover {
+  background:#22c55e;
+  transform: translateY(-3px);
+}
+
+/* Responsive */
+@media(max-width:768px){
+  h1{font-size:2.2em;}
+  h2{font-size:1.2em;}
+  p{font-size:1em;}
+  .btn{padding:12px 30px;font-size:1em;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<div class="container">
+  <h1>CyberDoc</h1>
+  <h2>Your AI-Powered Email Security Assistant</h2>
+  <p>
+    Analyze your emails for phishing threats using AI. Our platform provides:
+    <ul style="text-align:left; display:inline-block; margin-top:10px;">
+      <li>Gmail-like interface to view and select emails</li>
+      <li>AI chatbot powered by Gemini to answer your questions</li>
+      <li>Real-time phishing detection and risk scoring</li>
+      <li>Fallback mode to analyze selected email JSONs</li>
+    </ul>
+  </p>
+  <button class="btn" onclick="goToIndex()">Go to Dashboard</button>
+</div>
+
+<script>
+// Button redirect
+function goToIndex() {
+  window.location.href = "http://127.0.0.1:8080/index.html";
+}
+
+// Anime.js canvas animation
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let circles = [];
+for(let i=0;i<80;i++){
+  circles.push({
+    x: Math.random()*canvas.width,
+    y: Math.random()*canvas.height,
+    radius: Math.random()*3+1,
+    dx: (Math.random()-0.5)*0.5,
+    dy: (Math.random()-0.5)*0.5,
+    alpha: Math.random()
+  });
+}
+
+function animate(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  circles.forEach(c=>{
+    c.x += c.dx;
+    c.y += c.dy;
+    if(c.x<0||c.x>canvas.width) c.dx*=-1;
+    if(c.y<0||c.y>canvas.height) c.dy*=-1;
+    ctx.beginPath();
+    ctx.arc(c.x,c.y,c.radius,0,Math.PI*2);
+    ctx.fillStyle = `rgba(79,70,229,${c.alpha})`;
+    ctx.fill();
+    ctx.closePath();
+  });
+  requestAnimationFrame(animate);
+}
+animate();
+
+// Resize canvas
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+
+</body>
+</html>

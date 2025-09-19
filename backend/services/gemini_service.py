@@ -17,8 +17,7 @@ def analyze_email(email_text: str, rule_score: float, ml_score: float, final_sco
             "explanation": "No email content provided."
         }
 
-    prompt = f"""
-You are a security AI analyzing an email. Your task is to explain the **scores** below
+    prompt = f"""You are a security AI analyzing an email. Your task is to explain the **scores** below
 in a way that a non-technical user can easily understand.
 
 ⚡ Given Scores:
@@ -33,10 +32,14 @@ Instructions:
 3. For ML Score → explain that this is from the ML model's confidence/accuracy and what it means.
 4. For Final Score → explain how it combines both rules and ML model, and what it suggests about phishing likelihood.
 5. Use **clear, simple language** and bullet points where needed.
-6. Conclude with a short, plain summary: whether the email is likely phishing or safe.
+6. Explain in simple terms what a **false positive** and **false negative** would mean for this email.
+   - False positive: when the system wrongly flags a safe email as phishing.
+   - False negative: when the system misses a phishing email and marks it as safe.
+7. Conclude with a short, plain summary: whether the email is likely phishing or safe.
 
 Email to analyze:
 {email_text}
+
 """
 
     try:

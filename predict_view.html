@@ -40,10 +40,10 @@ body { margin:0; font-family:'Share Tech Mono', monospace; background:var(--bg);
 .explanation-list { margin:0; padding-left:20px; }
 .explanation-list li { margin-bottom:10px; line-height:1.5; font-size:.95rem; }
 
-.email-card { margin-top:22px; padding:14px 18px; background:#272f3b; border-radius:12px; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition:all .2s; }
-.email-card:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
-.dropdown-btn { background:var(--accent); border:none; color:#111827; font-weight:800; width:36px; height:36px; border-radius:50%; cursor:pointer; font-size:18px; transition:all .3s; }
-.dropdown-btn:hover { background:#2563eb; color:#fff; transform:scale(1.1); }
+.email-card { margin-top:22px; padding:14px 18px; background:#272f3b; border-radius:12px; }
+.email-header { font-weight:700; color:var(--accent); margin-bottom:8px; }
+.email-meta { color:var(--text-secondary); font-size:0.98em; margin-bottom:6px; }
+.email-body { background:#181c24; color:var(--text-main); border-radius:8px; padding:16px 18px; font-size:1.08em; white-space:pre-wrap; margin-top:10px; line-height:1.6; }
 
 .modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,.6); z-index:1000; display:flex; align-items:center; justify-content:center; }
 .modal-content { background:#1f2937; padding:24px; border-radius:12px; max-width:700px; width:90%; color:var(--text-main); animation:modalFade .3s ease; }
@@ -71,9 +71,11 @@ body { margin:0; font-family:'Share Tech Mono', monospace; background:var(--bg);
 
   <div id="risk-summary">Loading…</div>
 
-  <div id="email-card" class="email-card" style="display:none" onclick="openModal()">
-    <span id="email-title">Message</span>
-    <button class="dropdown-btn">+</button>
+  <div id="email-card" class="email-card" style="display:none">
+    <div class="email-header" id="email-title">Message</div>
+    <div class="email-meta" id="email-from"></div>
+    <div class="email-meta" id="email-date"></div>
+    <div class="email-body" id="email-body"></div>
   </div>
 
   <!-- ML Section -->
@@ -101,14 +103,6 @@ body { margin:0; font-family:'Share Tech Mono', monospace; background:var(--bg);
   </div>
 </div>
 
-<div id="emailModal" class="modal">
-  <div class="modal-content">
-    <span class="close" onclick="closeModal()">&times;</span>
-    <h2 id="modalSubject"></h2>
-    <p id="modalBody" style="line-height:1.5;white-space:pre-wrap"></p>
-  </div>
-</div>
-
 <script>
 let emailData = {};
 
@@ -116,12 +110,11 @@ function escapeHtml(s){ return s ? String(s).replace(/&/g,'&amp;').replace(/</g,
 function clamp(n,min,max){ return Math.max(min,Math.min(max,n)); }
 function riskClassFromScore(score){ return score>=70?'high':score>=40?'medium':'low'; }
 
-function openModal(){
-  document.getElementById('modalSubject').innerText = emailData.subject || '';
-  document.getElementById('modalBody').innerText = emailData.body || 'No content';
-  document.getElementById('emailModal').style.display = 'flex';
+function parseSender(from) {
+  if(!from) return {name:'', email:''};
+  const match = from.match(/^(.*?)(?:\s*<(.+?)>)?$/);
+  return {name: match?.[1]?.replace(/"/g,'').trim()||'', email:match?.[2]?.trim()||''};
 }
-function closeModal(){ document.getElementById('emailModal').style.display = 'none'; }
 
 (async function(){
   const params = new URLSearchParams(window.location.search);
@@ -132,21 +125,41 @@ function closeModal(){ document.getElementById('emailModal').style.display = 'no
     const parsed = await res.json();
 
     emailData = parsed.email || {};
-    document.getElementById('meta-from').textContent = emailData.from || 'Unknown';
+    const sender = parseSender(emailData.from);
+    document.getElementById('meta-from').textContent = sender.name || sender.email || 'Unknown sender';
     document.getElementById('meta-subject').textContent = emailData.subject || '';
     document.getElementById('meta-date').textContent = emailData.date || '';
 
+    // Show email card with all details, but limit body preview
+    const maxBodyLength = 600; // or any length you prefer
+    let bodyPreview = emailData.body || '';
+    if (bodyPreview.length > maxBodyLength) {
+      bodyPreview = bodyPreview.slice(0, maxBodyLength) + '\n... [Content truncated]';
+    }
+    document.getElementById('email-title').textContent = emailData.subject || 'Message';
+    document.getElementById('email-from').textContent = 'From: ' + (sender.name ? sender.name + ' ' : '') + (sender.email ? '<' + sender.email + '>' : '');
+    document.getElementById('email-date').textContent = 'Date: ' + (emailData.date || '');
+    document.getElementById('email-body').textContent = bodyPreview;
+    document.getElementById('email-card').style.display = 'block';
+
     const ml = parsed.ml_result || {};
     const gemini = parsed.gemini_result || {};
-    const score = Number(ml.risk_score ?? ml.final_score ?? ml.ml_score ?? 0);
+    // Restore risk score logic: multiply by 100 if <= 1
+    let score = ml.risk_score ?? ml.final_score ?? ml.ml_score ?? 0;
+    score = Number(score)||0;
+    if(score <= 1 && score > 0) score = Math.round(score * 100);
+    score = clamp(score,0,100);
     const rclass = riskClassFromScore(score);
 
-    // Risk summary
+    const prediction = ml.prediction ? `<span style="margin-left:18px;">Prediction: <b style="color:${rclass==='high'?'#ef4444':rclass==='medium'?'#facc15':'#22c55e'}">${escapeHtml(ml.prediction)}</b></span>` : '';
     document.getElementById('risk-summary').innerHTML = `
       <span class="risk-badge ${rclass}">${rclass.toUpperCase()} Risk</span>
-      <div style="margin-top:8px">Primary Score: <b>${score}</b></div>
+      <div style="margin-top:8px">
+        Risk Score: <b>${score}</b>
+        ${prediction}
+      </div>
       <div class="score-bar-container">
-        <div class="score-bar ${rclass}" style="width:${clamp(score,0,100)}%"></div>
+        <div class="score-bar ${rclass}" style="width:${score}%"></div>
       </div>
     `;
 
@@ -172,10 +185,6 @@ function closeModal(){ document.getElementById('emailModal').style.display = 'no
       }
     });
     document.getElementById('gemini-explanation').style.display = expList.innerHTML?'block':'none';
-
-    // Email Card
-    document.getElementById('email-title').textContent=emailData.subject||'Message';
-    document.getElementById('email-card').style.display='flex';
 
     // --- Anomaly Section ---
     const anomaly = parsed.anomaly_result || null;
@@ -212,5 +221,7 @@ function closeModal(){ document.getElementById('emailModal').style.display = 'no
   }
 })();
 </script>
-</body>
+
+
+</html></body></body>
 </html>

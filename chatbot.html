@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Gemini Chatbot</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#111827;
+  color:#f3f4f6;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
+  align-items:center;
+  height:100vh;
+  margin:0;
+  padding:0;
+}
+h2 {
+  color:#4f46e5;
+  margin-top:16px;
+}
+button.back-btn {
+  align-self:flex-start;
+  margin: 12px 0 0 12px;
+  padding: 8px 16px;
+  border-radius: 12px;
+  border: none;
+  background: #4f46e5;
+  color: #fff;
+  cursor: pointer;
+}
+.chat-container {
+  width:90%;
+  max-width:600px;
+  margin-top:8px;
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+#email-select {
+  padding: 10px;
+  border-radius: 12px;
+  border: none;
+  background: #1f2937;
+  color: #f3f4f6;
+  margin-bottom: 8px;
+}
+#chat-box {
+  flex:1;
+  background:#1f2937;
+  padding:16px;
+  border-radius:12px;
+  overflow-y:auto;
+  height:400px;
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.message {
+  padding:8px 12px;
+  border-radius:8px;
+  max-width:80%;
+}
+.user {
+  background:#4f46e5;
+  align-self:flex-end;
+  color:#f3f4f6;
+}
+.bot {
+  background:#10b981;
+  align-self:flex-start;
+  color:#111827;
+}
+.typing {
+  font-style: italic;
+  opacity:0.7;
+}
+input {
+  padding:12px;
+  width:70%;
+  border-radius:12px;
+  border:none;
+}
+button.send-btn {
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  background:#4f46e5;
+  color:#fff;
+  cursor:pointer;
+  margin-left:8px;
+}
+</style>
+</head>
+<body>
+
+<button class="back-btn" onclick="goBack()">← Back</button>
+<h2>Gemini Chatbot</h2>
+
+<div class="chat-container">
+  <select id="email-select">
+    <option value="">-- No email selected (Fallback) --</option>
+  </select>
+  <div id="chat-box"></div>
+  <div style="display:flex; margin-top:8px;">
+    <input type="text" id="user-input" placeholder="Type your question..." />
+    <button class="send-btn" onclick="sendMessage()">Send</button>
+  </div>
+</div>
+
+<script>
+const SERVER_URL = "http://127.0.0.1:5000";
+let selectedEmail = "";
+
+// Back button function
+function goBack() {
+  window.location.href = "index.html";
+}
+
+// Load emails into dropdown
+async function loadEmails() {
+  try {
+    const resp = await fetch(`${SERVER_URL}/list_emails`);
+    const emails = await resp.json();
+    const select = document.getElementById('email-select');
+    emails.forEach(file => {
+      const option = document.createElement('option');
+      option.value = file;
+      option.textContent = file;
+      select.appendChild(option);
+    });
+    select.addEventListener('change', () => {
+      selectedEmail = select.value;
+      if(selectedEmail) addBotMessage(`Context set for "${selectedEmail}"`);
+      else addBotMessage("No email selected, fallback mode");
+    });
+  } catch(e) {
+    console.error("Failed to load emails:", e);
+  }
+}
+
+// Display messages
+function addUserMessage(msg) {
+  const chatBox = document.getElementById('chat-box');
+  const div = document.createElement('div');
+  div.className = 'message user';
+  div.textContent = msg;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+}
+function addBotMessage(msg, typing=false) {
+  const chatBox = document.getElementById('chat-box');
+  const div = document.createElement('div');
+  div.className = 'message bot';
+  if(typing) div.classList.add('typing');
+  div.textContent = msg;
+  chatBox.appendChild(div);
+  chatBox.scrollTop = chatBox.scrollHeight;
+  return div;
+}
+
+// Send message
+async function sendMessage() {
+  const input = document.getElementById('user-input');
+  const msg = input.value.trim();
+  if(!msg) return;
+
+  addUserMessage(msg);
+  input.value = '';
+
+  // Typing indicator
+  const typingDiv = addBotMessage('Gemini is typing...', true);
+
+  try {
+    const resp = await fetch(`${SERVER_URL}/chat`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({prompt: msg, email_file: selectedEmail})
+    });
+    const data = await resp.json();
+    typingDiv.remove();
+
+    addBotMessage(data.response);
+  } catch(e) {
+    typingDiv.remove();
+    addBotMessage("Error connecting to chatbot.");
+  }
+}
+
+// Send message on Enter key
+document.getElementById('user-input').addEventListener('keydown', e => {
+  if(e.key === 'Enter') sendMessage();
+});
+
+// Initialize
+loadEmails();
+</script>
+
+</body>
+</html>
